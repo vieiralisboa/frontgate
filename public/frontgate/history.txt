@@ -1,0 +1,55 @@
+FRONTGATE HISTORY
+
+0.0.0 (11-03-2013)
+Frontgate is born with the Location Constructor 1.0.0. requires $LAB (in scripts method).
+
+0.0.1 (22-04-2013)
+Added Basic Autorization for Ajax requests to remote host.
+Uses jQuery.ajaxSetup to set Basic Authorization before sending the Ajax request.
+
+//---------------------------------------------------------------------------------------------------------
+// Frontgate configures Ajax to set Basic Authorization before sending requests if user and pw are defined.
+// In this example, jQuery sets BA user:pw to 'username':'password' before sending an Ajax request.
+// With this, Ajax requests to example.com get an OK response if its credentials are 'username:password'.
+//---------------------------------------------------------------------------------------------------------
+Site = new Frongate.Location({
+    hostname: 'example.com',
+    pathname: '/',
+    user: 'username',
+    pw:'password'
+});
+
+//-----------------------------------------
+// Set new Basic Authorization credentials
+//-----------------------------------------
+Site.auth({
+    user: 'myUsername',
+    pw: 'myPassword'
+});
+
+//---------------------------------------------------------------------------------
+// In the following example, jQuery sets BA user:pw to 'myUsername':'myPassword'
+// before sending any Ajax request. This is what Frontgate does behind the scenes.
+//---------------------------------------------------------------------------------
+$.ajaxSetup({ beforeSend: Site.xhrAuth('myUsername', 'myPassword') });
+
+0.0.2 (25-04-2013)
+Browser UI/Menu bar navigation with the Frontgate Toolbar 1.0.0.
+
+0.0.3 btoa function
+
+0.0.4 events handler
+
+0.0.5 hash router
+
+0.0.6 hrefAuth method
+
+0.0.7 sync method
+
+0.0.8 removes $LAB dependency; scripts is now alias for sync
+
+0.0.9 situs bars website
+
+0.1.0 hash router and situs bars moved to separate files
+
+0.1.1 (21-08-2013) git version control

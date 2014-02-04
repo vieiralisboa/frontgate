@@ -1,0 +1,176 @@
+@charset "utf-8";
+
+button::-moz-focus-inner {
+	border: 0;
+}
+
+* {
+	outline: none;
+}
+
+body {
+	color: #808080;/*Gray*/
+	color: rgba(0,0,0,.5);/*Gray*/
+
+	font-size: 12px;
+
+	background-color: #F5F5DC; /*Beije*/
+
+	margin:0px;
+	padding:0px;
+	border: none;
+
+	position: absolute;
+	top:0;
+	bottom: 0;
+	width: 100%;
+
+	/*---------------------------------
+	http://stackoverflow.com/a/6900392
+	---------------------------------*/
+	-webkit-user-select: none; /* Chrome/Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+
+	/* Rules below not implemented in browsers yet */
+	-o-user-select: none;
+	user-select: none;
+}
+
+#body {
+	position: absolute;
+	width: 100%;
+	bottom:0;
+	top: 0;
+
+	padding: 0px;
+	padding-top: 15%;
+
+	text-align: center;
+	font-family: serif;
+}
+
+noscript img{
+	padding: 5px;
+}
+
+#noscript, #email{
+	margin: 40px 10px;
+	display: block;
+	padding: 5px;
+	letter-spacing: 1px;
+	font-size: 110%;
+
+	/*orange
+	color: rgb(255,165,0);
+	color: rgba(255,165,0,.7);*/
+
+	/*
+	border: solid rgba(255,0,0,.1) 1px;
+	*/
+}
+
+#email:hover{
+	color: rgba(255,165,0,.75);
+}
+
+#logo {
+	display: inline-block;
+	margin-top: 0px;
+	padding: 10px;
+	width: 100px;
+	/*
+	border: solid rgba(0,0,255,.1) 1px;
+	*/
+}
+
+#title{
+	font-size: 30px;
+	font-family: Trajan-Regular;
+	letter-spacing: 1px;
+	font-weight: normal;
+	/*
+	text-shadow: 0px 0px 6px black; */
+
+	margin: 5px;
+	padding: 0px;
+	/*
+	border: solid rgba(0,255,0,.1) 1px;
+	*/
+}
+
+#subtitle{
+	color: rgba(0,0,0,.5);
+	font-size: 125%;
+	font-family: monospace;
+	margin: 0px;
+	padding: 0px;
+	/*
+	border: solid rgba(0,255,0,.1) 1px;
+	*/
+}
+
+#copyright {
+	letter-spacing: 1px;
+	display: block;
+	padding: 5px 8px;
+	margin: 0px;
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	text-align: right;
+	font-family: monospace;
+	/*
+	border: solid rgba(200,200,0,.1) 1px;
+	*/
+}
+
+#title,
+#subtitle,
+#copyright {
+	cursor: default;
+}
+
+@font-face {
+	font-family: 'Trajan-Regular';
+	/*src: url('fonts/Trajan-Regular.eot');*/
+	src: local('☺'),
+		url('fonts/Trajan-Regular.eot?#iefix') format('embedded-opentype'),
+		url('fonts/Trajan-Regular.woff') format('woff'),
+		url('fonts/Trajan-Regular.ttf') format('truetype'),
+		url('fonts/Trajan-Regular.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/*
+@font-face {
+	font-family: 'Trajan-Bold';
+	src: url('fonts/Trajan-Bold.eot');
+	src: local('☺'),
+		url('fonts/Trajan-Bold.eot?#iefix') format('embedded-opentype'),
+		url('fonts/Trajan-Bold.woff') format('woff'),
+		url('fonts/Trajan-Bold.ttf') format('truetype'),
+		url('fonts/Trajan-Bold.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+*/
+
+/*
+.grayscale{
+	filter: grayscale(100%);
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+}
+
+.sepia{
+	filter: sepia(100%);
+-webkit-filter: sepia(100%);
+-moz-filter: sepia(100%);
+-o-filter: sepia(100%);
+-ms-filter: sepia(100%);
+}
+*/

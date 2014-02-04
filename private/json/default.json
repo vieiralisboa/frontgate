@@ -1,0 +1,106 @@
+{
+    "head": {
+        "title": "Frontgate",
+        "description": "Plain Simple Webpage Your Way",
+        "script":"js/default.js",
+        "stylesheet": "css/default.css",
+        "lang":"en",
+        "favicon":"favicon.png"
+    },
+    "data": {
+        "ga":  "UA-XXXXXXXX-X",
+        "_": {
+            "ga": "Google Analytics ID"
+        }
+    },
+    "remote" : {
+        "_hostname": "situs.xn--stio-vpa.pt",
+        "hostname": "xn--stio-vpa.pt",
+        "protocol": "https:",
+        "port": null,
+        "disabled": true,
+        "_": {
+            "_": [
+                "Location of the Dungeon server",
+                "Dungeon is the remote server running Situs PHP Framework"
+            ]
+        }
+    },
+    "host": "default",
+    "shebang": {
+        "dir": "/htdocs/libs/jquery.bar/js/",
+        "home": "/htdocs/sites/frontgate/private/json/",
+        "_home": null,
+        "_": {
+            "dir": [
+                "path or url to the json files",
+                "a non secure http protocol url (not https)"
+            ],
+            "home": [
+                "path or url to the Home json file",
+                "json files: the Bar addon/hashbang config files"
+            ],
+            "_": "remove or set falsy values to use the defaults"
+        }
+    },
+    "bars": {
+        "header": {
+            "_items":[{
+            "text": "#!Home",
+            "attr":{
+                "title": "This is a shebang request.",
+                "href": "?_escaped_fragment_=Home"
+            }
+        }]
+        },
+        "body": {
+            "items":[{
+                "text": "Frontgate JS",
+                "attr": {
+                    "class": "title",
+                    "title": "Shebang Website for Frontgate Situs",
+                    "style":"font-size: 50px"
+                }
+            },
+            {
+                "text": "JavaScript Library",
+                "attr": {
+                    "class": "subtitle"
+                }
+            }]
+        },
+        "footer": {
+            "items":[{
+                "html": "Copyright &copy; 2014",
+                "attr": {
+                    "href":"#copyright"
+                }
+            },
+            {
+                "text": "FRONTGATE",
+                "attr": {
+                    "href":"#frontgate"
+                }
+            },
+            {
+                "text": "frontgate.situs.pt",
+                "attr": {
+                    "href":"#situs"
+                }
+            },
+            {
+                "text": "info",
+                "attr": {
+                    "id":"contact",
+                    "href": "#mailto"
+                }
+            }]
+        },
+        "notice": {
+            "items":[{
+                "el": "a",
+                "text": "JavaScript is disabled"
+            }]
+        }
+    }
+}

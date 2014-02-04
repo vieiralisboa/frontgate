@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>FrontGate</h1>
+<ul>
+    <li>JavaScript Library</li>
+    <li>Location Constructor</li>
+    <li>Location Object</li>
+    <li><a href="history.txt">History</a></li>
+</ul>
+<pre>
+
+<span style="color: gray">// Frontage starts as the local host</span>
+<span style="color: blue">Frontgate.href();</span><span style="color: gray">// http://localhost</span>
+
+<span style="color: gray">// get the complete url for a resource</span>
+<span style="color: blue">Frontgate.href('images/image.jpg');<span style="color: gray">// http://localhost/images/image.jpg</span>
+
+<span style="color: gray">// load a script (http://localhost/js/raphael.js)</span>
+<span style="color: blue">Frontgate.script('js/raphael.js');</span>
+
+<span style="color: gray">// load a stylesheet (http://localhost/css/default.css)</span>
+<span style="color: blue">Frontgate.stylesheet('css/default.css');</span>
+
+<span style="color: gray">// load a template</span>
+<span style="color: blue">Frontgate.template('templates/template.html', callback);</span>
+
+<span style="color: gray">// load synchronized scripts</span>
+<span style="color: blue">Frontgate.scripts( script1, script2, ... );</span>
+
+<span style="color: gray">// create a remote Location</span>
+<span style="color: purple">var Library = new Frontgate.Location({
+    hostname: 'situs.dev',
+    pathname: "/libs"
+});</span>
+
+<span style="color: gray">// load a stylesheet and synchronized scripts</span>
+<span style="color: purple">Library.stylesheet('jquery-ui.css')
+    .scripts('jquery-ui.core.js', 'jquery-ui.widget.js', 'jquery-ui.mouse.js');</span>
+
+<span style="color: gray">// load a template and populate it with data using underscore</span>
+<span style="color: purple">Library.script('underscore.js', function(){
+    Library.template('user-data-template.html',
+        function(template){
+            $('#user-data').html(_.template(template, userData));
+        });
+});</span>
+
+<span style="color: gray">// Project location</span>
+<span style="color: blue">var Project = new Frontgate.Location({
+    hostname: "situs.dev",
+    pathname: "/dev/medorc"
+});</span>
+
+<span style="color: blue">Project.href();</span><span style="color: gray">// 'http://situs.dev/dev/medorc'</span>
+
+<span style="color: gray">// load a stylesheet; change its pathname; load a script with a callback</span>
+<span style="color: blue">Project.stylesheet('styles/medorc.css')
+    .attr('pathname','/concrete')
+    .script('index.js', function(){
+        console.log("Loaded '//situs.dev/concrete/index.js'");
+});</span>
+
+<span style="color: blue">Project.href();</span><span style="color: gray">// 'http://situs.dev/concrete'</span>
+
+<span style="color: gray">// Remote Location with libs</span>
+<span style="color: black">var CDN = new Frontgate.Location({
+    hostname: 'cnd.dev',
+    pathname: "/libs/min"
+});</span>
+
+<span style="color: gray">// load scripts</span>
+<span style="color: black">CDN.libs('$', '_', 'Backbone', function(){
+    if(OS == "Android"){
+        return "/touch/forAndroid.js";
+    }
+    return null;
+});</span>
+
+/* Demos */
+
+</pre>
+<script src="/jquery/jquery-1.8.3.min.js"></script>
+<script src="js/frontgate.js"></script>
+<script>
+//JavaScript
+
+var string1A = {
+    comment:"// all Situs methods apply to its location",
+    code: ["var Situs = new Frontgate.Location({",
+"    hostname: 'situs.xn--stio-vpa.pt',",
+"    pathname: '/hosts/demo',",
+"    protocol: 'https:',",
+//"    port: 80",
+"});"]
+};
+
+var string1B = {
+    comment: "// callback after loading script",
+    code: ["Situs.script('index.js', function(){",
+"    console.log(Situs.href('/js/hello.js'));",
+"});"]
+};
+
+var string2 = {
+    comment: ["/* load scripts synchronously",
+" * path is absolute from 'hostname'",
+" * @example model.js requires Backbone; Backbone requires _",
+" */"],
+code: "Frontgate.scripts('/underscore/underscore.js',\n\t'/backbone/backbone.js', '/dev/frontgate/js/model.js')"
+};
+
+var examples = [
+    {
+        button: "href ( )",
+        comment: "// default location is current url",
+        code: "console.log(Frontgate.href());",
+        click: function(){
+            $(this).html(Frontgate.href());
+            console.log(Frontgate.href());
+        }
+    },
+    {
+        button: "href ( resourse )",
+        comment: "// href is relative to 'pathname'",
+        code: "console.log(Frontgate.href('images/tux.png'));",
+        click: function(){
+            $(this).html(Frontgate.href('images/tux.png'));
+            console.log(Frontgate.href('images/tux.png'));
+        }
+    },
+    {
+        button: "stylesheet",
+        comment: "// path is absolute from 'pathname'",
+        code: "Frontgate.stylesheet('/css/default.css');",
+        click: function(){
+            Frontgate.stylesheet('/css/default.css');
+        }
+    },
+    {
+        button: "script",
+        comment: "// path is absolute from 'pathname'",
+        code: "Frontgate.script('/js/hello.js');",
+        click: function(){
+            Frontgate.script('/js/hello.js');
+        }
+    },
+
+    {
+        button: "template",
+        comment: "// path IS absolute from 'pathname'",
+        code: "Frontgate.template('/templates/upload-form_template.html', function(template){\n    alert(template);\n});",
+        click: function(){
+            Frontgate.template('/templates/code-box_template.html', function(template){
+                //console.log(template);
+                alert(template);
+            });
+        }
+    },
+
+    {
+        button: "scripts",
+        comment: string2.comment.join("\n"),
+        code: string2.code,
+        click: function(){
+            Frontgate.scripts('/underscore/1.4.2/underscore-min.js',
+                '/backbone/lib/0.9.2/backbone-min.js',
+                '/dev/frontgate/js/model.js');
+        }
+    },
+    {
+        button: "Location",
+        comment: string1A.comment,
+        code: string1A.code.join("\n")
+    },
+    {
+        button: "Location",
+        comment: string1B.comment,
+        code: string1B.code.join("\n"),
+
+        click: function(){
+            window.Situs = new Frontgate.Location({
+                hostname: 'situs.xn--stio-vpa.pt',
+                pathname: '/hosts/demo',
+                protocol: 'https:'
+                //port: 80
+            });
+
+            //Situs.stylesheet('/css/default.css');
+
+            Situs.script('index.js', function(){
+                console.log(Situs.href('/js/hello.world.js'));
+            });
+        }
+    },
+    {
+        button: "loadScript",
+        comment: "/* location-free methods */\n\n// path can be absolute or relative\n",
+        code: "Frontgate.loadScript('js/hello.js');",
+        click: function(){
+            Frontgate.Location.loadScript("js/hello.js");
+        }
+    },
+    {
+        button: "loadStylesheet",
+        comment: "// path can be absolute or relative",
+        code: "Frontgate.loadStylesheet('css/tluafed.css');",
+        click: function(){
+            Frontgate.loadStylesheet("css/tluafed.css");
+        }
+    }
+];
+
+//
+function example(example){
+    var template = $('#code-box-template').html();
+        template = template.replace('<%= comment %>', example.comment);
+        template = template.replace('<%= code %>', example.code);
+
+    if(typeof example.click != 'undefined')
+        var exampleButton = $('<button>').html(example.button).click(example.click);
+
+    $('<div>').addClass('situs-example').html(template)
+        .append(exampleButton || $('<span>'))
+        .appendTo('body');
+}
+
+//
+if(!$('#code-box-template').length) $('<script>').attr({id:'code-box-template', type: 'text/Template'})
+    .load('templates/code-box_template.html', function(response, status, xhr){
+
+        if (status == "error") {
+        var msg = "Sorry but there was an error: ";
+        console.log(msg + xhr.status + " " + xhr.statusText);
+        }
+        else console.log('Loaded code-box template.');
+        //ze = arguments;
+        Frontgate.Location.forEach(examples, example);
+        $('.situs-example').css('margin-bottom','40px');
+    }).appendTo('body');
+else Frontgate.Location.forEach(examples, example);
+
+</script>
+</body>
+</html>

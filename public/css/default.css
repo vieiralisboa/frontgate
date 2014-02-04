@@ -1,0 +1,82 @@
+body{
+    background-color: rgb(32, 32, 32);
+}
+
+#body,
+#notice,
+#footer,
+#webpages{
+    background: none;
+}
+
+/* Main Bar */
+#body .bar {
+    width: auto; 
+    margin-top: 64px;
+    margin-bottom: 24px;
+}
+#body .bar li,
+#Headline .bar li {
+    float: none;        
+}
+#body a.title {
+    font-size: 36px;
+    /*font-family: 'Trajan';*/
+    font-family: 'Marcellus SC', serif;
+    font-weight: normal;
+    margin-bottom: 0px;
+
+}
+#body a.subtitle {
+    font-size: 14px;
+    font-family: Georgia, serif;
+    font-weight: normal;
+}
+#body a.title,
+#body a.subtitle {
+    color: #444444;
+    color: rgb(95, 90, 95);
+    letter-spacing: 1px;
+
+}
+
+/* Notice Bar */
+#notice {
+    position: absolute;
+    top: 0px;
+    height: 0px;
+}
+#notice .bar {
+    width: auto;        
+}
+#notice .bar > ul {
+    background-color: rgb(251, 204, 86);
+    border-radius: 0 0 5px 5px; 
+}
+#notice .bar > ul > li a {
+    color: rgb(34,34,34);
+    font-size: 13px;
+    margin: 0px 10px;
+}
+
+/* Links Bar */
+#footer {
+    position: absolute;
+    bottom: 0px;
+}
+#footer a:not([href='#situs']){
+    font-weight: 400;
+}
+#footer li:first-child a {
+    font-weight: 300;
+}
+/* YouHosting link */
+#footer li:last-child {
+    float: right;
+}
+
+/* Subdomains Bar */
+#webpages .bar {
+    width: auto;
+    display: none;        
+}

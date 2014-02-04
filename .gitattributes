@@ -1,0 +1,23 @@
+* text=auto
+
+# These files are text and should be normalized (convert crlf => lf)
+*.html    text
+*.css     text
+*.js      text
+*.json    text
+*.php     text
+*.svg     text
+*.md      text
+*.txt     text
+*.vtt     text
+*.srt     text
+
+# Images should be treated as binary
+# (binary is a macro for -text -diff)
+*.png     binary
+*.jepg    binary
+*.jpg     binary
+*.eot     binary
+*.otf     binary
+*.ttf     binary
+*.woff    binary

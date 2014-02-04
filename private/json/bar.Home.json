@@ -1,0 +1,12 @@
+{
+	"App": {},
+	"name": "Home",
+	"description": "Frontgate JavaScript library. Snapshot of the Home page.",
+	"items": [{
+			"text": "Usage",
+			"attr":{
+				"title": "Frontgate usage",
+				"href": "frontgate/index.html"
+			}
+		}]
+}
