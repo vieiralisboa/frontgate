@@ -10,7 +10,7 @@
     console.info(router.name, router.version.join("."));
 })
 ({
-    version: [0, 1, 0],
+    version: [0, 1, 1],
     name: "Frontgate Router",
 
     // Route Subscriber
@@ -60,51 +60,52 @@
         return hash;
     },
 
+    _notFound: function(hash, base, _hash, callback){
+        // router.onNotFound is set
+        if(typeof this.onNotFound == 'function')
+            this.onNotFound(hash, base, _hash, callback);
+        // router.onNotFound is NOT set
+        else if(typeof callback == 'function')
+            callback(hash, base, _hash, 0);//, callback);// circular reference!
+
+        return false;
+    },
+
     // Route Publisher
-    //-----------------------------------------------------------------
+    //-------------------------------------------------------------------------
     route: function(hash, callback){
         hash = this.hash(hash);
 
-        // base is the main hash before first slash (#<base>/)
+        // #<base>/:value
         var base = this.base(hash);
 
-        if(!this.routes[base]) {
-            //console.error("level_1 route not found", arguments);
+        // route not found in routes
+        if(!this.routes[base])
+            return this._notFound(hash, base, 0, callback);
 
-            if(typeof this.onNotFound == 'function')
-                this.onNotFound(hash, base);
+        // find a match for the route in the routes
+        for(var i in this.routes[base]){// /^#\w+\/\w+$/
+            var _hash = this.routes[base][i];
+            var hashMatch = hash.match(_hash.regExp);
 
-            if(typeof callback == 'function') callback(404, base);
+            // match for the route found!
+            if(hashMatch){
+                var route = this.regExpHash(_hash.hash, hash);
+                var stack = _hash.stack;
+                for(var j in stack) stack[j](route);
 
-            return false;
-        }
-
-        // find route match
-        for(var i in this.routes[base]){// route => '#<base>/:value'
-            var route = this.routes[base][i];
-
-            if(hash.match(route.regExp)){
-                var routeHash = this.regExpHash(route.hash, hash);
-                var stack = route.stack;
-                for(var j in stack) stack[j](routeHash);
-
+                // callback after calling all from route stack
                 if(typeof callback == 'function')
-                    callback(routeHash, base, route);
+                    callback(hash, base, _hash, route);
 
-                return routeHash;
+                return route;
             }
         }
 
-        // Hash has no match (route not found)
-        if(typeof this.onNotFound == 'function'){
-            //console.error("level_2 route not found", arguments);
+        //TODO fallback to #<base> if #<base>/:name is not found
 
-            this.onNotFound(hash, base, route);
-            if(typeof callback == 'function')
-                callback(routeHash, base, route);
-        }
-
-        return false;
+        // route no found in routes
+        return this._notFound(hash, base, _hash, callback);
     },
 
     // Hash Parser
