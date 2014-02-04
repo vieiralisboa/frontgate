@@ -18,7 +18,7 @@
         "hostname": "xn--stio-vpa.pt",
         "protocol": "https:",
         "port": null,
-        "disabled": true,
+        "disabled": false,
         "_": {
             "_": [
                 "Location of the Dungeon server",
