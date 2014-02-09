@@ -67,14 +67,14 @@
         // save Situs data on window unload
         $(window).bind('unload', function() {
             //TODO change item name to "situs-remote"
-            localStorage.setItem("situs", JSON.stringify(SITUS.location.attr()));
+            localStorage.setItem("situs", JSON.stringify(Frontgate.attr()));
         });
 
          //$.ajaxSetup({ cache: true });
 
         //console.log('BASIC AUTH '+this.attr('auth') + JSON.stringify(credentials));
         $.ajaxSetup({
-            beforeSend: SITUS.location.xhrAuth()// returns a function
+            beforeSend: Frontgate.xhrAuth()// returns a function
         });
 
         // Ajax indicators handlers
@@ -97,7 +97,8 @@
             //console.log("Start.signIn", route);
             SITUS.ui.signIn(route.attr.user);
         });
-        this.location.subscribeEvent('userchange', function(attr){
+        //this.location
+        Frontgate.subscribeEvent('userchange', function(attr){
             //TODO locale language?
             var welcome = "Bem-vindo";
             var title = attr.user + '@' + attr.hostname;
@@ -215,11 +216,16 @@
                 if(!user) return false;
                 pw = pw || user;
 
-                // Basic Auth fo ajax calls
+                /*/ Basic Auth fo ajax calls
                 SITUS.location.auth({
                     user: user,
                     pw: pw
+                });//*/
+                Frontgate.auth({
+                    user: user,
+                    pw: pw
                 });
+
                 return this;
             },
             post: situs.post,
@@ -238,10 +244,11 @@
         situs.location = JSON.parse(localStorage.getItem("situs")) || {};
 
         // user auth
-        SITUS.location.auth({
+        Frontgate.auth({
             user: situs.location.user || "anonymous",
             pw: situs.location.pw || situs.location.user || "anonymous"
         });
+
 
         // callback
         if(data.callback){
@@ -261,7 +268,8 @@
         }
 
         //TODO locale language PT
-        if(this.location.attr("user") == "anonymous") this.ui.signIn("anónimo");
+        if(Frontgate.attr("user") == "anonymous") this.ui.signIn("anónimo");
+
         //situs.ui().post("Hello World!");
 
         // Route to #Home Bar addon
