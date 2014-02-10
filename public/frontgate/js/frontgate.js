@@ -111,9 +111,8 @@
             var user = this.attr('user');
             var pw = this.attr('pw');
             var pathname = this.attr('pathname');
-
             var uri = host + '/' + pathname + '/' + url || '';
-            var href = this.attr('protocol') + "//" + user+':'+pw+'@'+uri.replace(/\/+/g,"/");
+            var href = this.attr('protocol') + "//" + user+':'+encodeURIComponent(pw)+'@'+uri.replace(/\/+/g,"/");
 
             return href;
         };
