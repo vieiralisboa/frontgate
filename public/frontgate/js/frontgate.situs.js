@@ -5,6 +5,14 @@
 
 (function(situs){
 
+    Frontgate.situs = function(data){
+        if (!arguments.length) {
+            return situs;
+        }
+
+        return new this.Situs(data);
+    };
+
     Frontgate.Situs = function(data){
         var SITUS = this;
         data = data || {};
@@ -286,7 +294,7 @@
     console.info(situs.name, situs.version.join('.'));
 })
 ({
-    version: [0, 1, 0],
+    version: [0, 1, 1],
     name: "Frontgate Situs",
     getBar: function(selector){
         var index = $(selector).find(".bar").first().attr("data-bar");
