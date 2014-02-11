@@ -32,6 +32,15 @@
             return app;
         };
 
+        // creates new location or returns current location attributes
+        this.location = function(attr){
+            if (!arguments.length) {
+                return this.attr();
+            }
+
+            return new this.Location(attr);
+        };
+
         // Location attributes
         //---------------------------------------------------------------------
         this.attr = function(attr, value){ //console.log(attr + " => " + value);
@@ -262,7 +271,7 @@
 })
 ({
     name: "Frontgate",
-    version: [0, 2, 0],
+    version: [0, 2, 1],
 
     // Load Script
     //-------------------------------------------------------------------------
