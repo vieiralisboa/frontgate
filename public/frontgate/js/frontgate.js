@@ -13,7 +13,7 @@
             host: window.location.host,
             hostname: window.location.hostname,
             port:  window.location.port,
-            pathname: window.location.pathname.match(/^(\/(\w+\/)*)/)[0]
+            pathname: frontgate.pathname()[1]
         };
 
         // Apps Private Object
@@ -44,15 +44,21 @@
         // Location attributes
         //---------------------------------------------------------------------
         this.attr = function(attr, value){ //console.log(attr + " => " + value);
-            if(!arguments.length) return _attr_;
+            if (!arguments.length) {
+                return _attr_;
+            }
 
             // only one argument
-            if(typeof value == "undefined") {
+            if (typeof value == "undefined") {
                 // argument is a key name
-                if(typeof attr == "string") return _attr_[attr];
+                if (typeof attr == "string") {
+                    return _attr_[attr];
+                }
 
                 // argument is an object
-                for(var k in attr) this.attr(k, attr[k]);
+                for(var k in attr) {
+                    this.attr(k, attr[k]);
+                }
 
                 return this;
             }
@@ -60,8 +66,9 @@
             if(attr != 'user' && attr != 'pw' && attr != 'host'){
                 _attr_[attr] = value;
             }
-
-            else throw 'can not set attr:' + attr ;
+            else {
+                throw 'can not set attr:' + attr;
+            }
 
             if(attr == 'hostname' || attr == 'port') {
                 var hostname = attr.hostname || _attr_.hostname;
@@ -271,7 +278,7 @@
 })
 ({
     name: "Frontgate",
-    version: [0, 2, 1],
+    version: [0, 3, 0],
 
     // Load Script
     //-------------------------------------------------------------------------
@@ -442,6 +449,11 @@
     //-------------------------------------------------------------------------
     dirname: function(path) {
         return path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '');
+    },
+
+    pathname: function(pathname){
+        pathname = pathname || window.location.pathname;
+        return pathname.match(/^((\/[\w\.\-]+)*)\/([\w\.\-]+)?$/);
     },
 
     LOG: false,
