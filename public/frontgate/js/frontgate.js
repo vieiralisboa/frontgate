@@ -278,7 +278,7 @@
 })
 ({
     name: "Frontgate",
-    version: [0, 3, 0],
+    version: [0, 3, 1],
 
     // Load Script
     //-------------------------------------------------------------------------
@@ -454,6 +454,47 @@
     pathname: function(pathname){
         pathname = pathname || window.location.pathname;
         return pathname.match(/^((\/[\w\.\-]+)*)\/([\w\.\-]+)?$/);
+    },
+
+    remote: function(attr){
+        // remote location exists
+        if(this.remote._remote) {
+            return this.remote._remote;
+        }
+
+        var hostname;
+
+        // remote location from argument
+        if (attr) {
+            //throw "use Location to create new locations";
+            hostname = attr.hostname;
+            if(!hostname) {
+                throw "not a valid hostname";
+            }
+            this.remote._remote = new Frontgate.Location({
+                hostname: hostname,
+                pathname: attr.pathname || "/",
+                protocol: attr.protocol || "http:",
+                port: attr.port || null,
+            });
+            return this.remote._remote;
+        }
+
+        // remote location from html data
+        var _html = document.getElementsByTagName("html")[0];
+        hostname = _html.getAttribute("data-remote_hostname");
+
+        if(!hostname) {
+            throw "not a valid hostname";
+        }
+        //data-user_addr="77.54.90.173" data-request_time="1392211585"
+        this.remote._remote = new Frontgate.Location({
+            hostname: hostname,
+            protocol: _html.getAttribute("data-remote_protocol"),
+            pathname: _html.getAttribute("data-remote_pathname") || "/",
+            port: _html.getAttribute("data-remote_port") || 80
+        });
+        return this.remote._remote;
     },
 
     LOG: false,
