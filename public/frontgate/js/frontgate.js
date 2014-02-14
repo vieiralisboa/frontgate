@@ -270,15 +270,21 @@
     // Location free methods (free as in 'do not depend of')
     //TODO remove from instace keep only in Frontgate?
     //-------------------------------------------------------------------------
-    for(var i in frontgate) if(!Frontgate[i]) Frontgate[i] =  frontgate[i];
+    for (var i in frontgate) {
+        if(!Frontgate[i]) {
+            Frontgate[i] = frontgate[i];
+        }
+    }
+
+    frontgate.VERSION = frontgate.version.join(".");
 
     window.Frontgate = new Frontgate;
 
-    console.info(frontgate.name, frontgate.version.join("."));
+    console.info(frontgate.name, frontgate.VERSION);
 })
 ({
     name: "Frontgate",
-    version: [0, 3, 1],
+    version: [0, 3, 2],
 
     // Load Script
     //-------------------------------------------------------------------------
@@ -487,13 +493,15 @@
         if(!hostname) {
             throw "not a valid hostname";
         }
-        //data-user_addr="77.54.90.173" data-request_time="1392211585"
         this.remote._remote = new Frontgate.Location({
             hostname: hostname,
             protocol: _html.getAttribute("data-remote_protocol"),
             pathname: _html.getAttribute("data-remote_pathname") || "/",
-            port: _html.getAttribute("data-remote_port") || 80
+            //request_time: _html.getAttribute("data-request_time"),
+            //user_addr: _html.getAttribute("data-user_addr"),
+            port: _html.getAttribute("data-remote_port")
         });
+        this.remote._remote.auth(Frontgate.attr());
         return this.remote._remote;
     },
 
