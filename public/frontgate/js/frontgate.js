@@ -103,7 +103,7 @@
 
             // address: example.com/directory/dir/resourse.jpg
             // ensure the resourse is separated by a slash
-            if(typeof resource == 'string') {
+            if(typeof resource == 'string' || typeof resource == 'number') {
                 address = address + "/" + resource;
             }
 
@@ -113,6 +113,11 @@
 
             return this.attr('protocol') + "//" + url;
         };
+
+        // alias for href
+        this.url = function(resourse){
+            return this.href(resourse);
+        }
 
         // HREFAUTH URL with basic Authentication
         //---------------------------------------------------------------------
@@ -132,6 +137,11 @@
 
             return href;
         };
+
+        // alias for hrefAuth
+        this.urlAuth = function(url){
+            return this.hrefAuth(url);
+        }
 
         // Script
         //---------------------------------------------------------------------
@@ -284,7 +294,7 @@
 })
 ({
     name: "Frontgate",
-    version: [0, 3, 2],
+    version: [0, 3, 3],
 
     // Load Script
     //-------------------------------------------------------------------------
