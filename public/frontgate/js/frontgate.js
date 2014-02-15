@@ -9,11 +9,11 @@
 
         // Location Private Object
         var _attr_ = {
-            protocol: window.location.protocol,
+            protocol: "http",
             host: window.location.host,
             hostname: window.location.hostname,
-            port:  window.location.port,
-            pathname: frontgate.pathname()[1]
+            port: null,
+            pathname: ""
         };
 
         // Apps Private Object
@@ -81,66 +81,61 @@
 
         this.attr(attributes);
 
-        // HREF
-        // Absolute location url to home or to resourse.
+        // URL to resourse
         //
-        // @param string absolute path from home to resourse
-        // @return string home url or resourse url
-        // @example Frontgate.href();// http://www.example.com:8080/homedir
-        // @example Frontgate.href('/js/main.js');
-        // http://www.example.com/home/js/main.js
+        // @param string path to resourse from root url
+        // @return string root url or absolute url to resourse
+        // @example Frontgate.uri();
+        // => http://www.example.com/root
+        // @example Frontgate.uri('js/main.js');
+        // => http://www.example.com/root/js/main.js
         //---------------------------------------------------------------------
-        this.href = function(resource){
-            // www.example.com, www.example.com:8080
-            var host = this.attr('host');
+        this.uri = function(resource) {
+            var port = this.attr('port'),
+                protocol = this.attr('protocol'),
+                host = this.attr('host'),
+                root = this.attr('pathname'),
+                uri = "{protocol}{host}{port}/{root}{resource}";
 
-            // /, /directory
-            var pathname = this.attr('pathname');
+            //TODO template
+            uri = uri.replace("{host}", host);//"http://example.com{port}/{pathname}/{resource}"
+            uri = uri.replace("{port}", port? ":" + port : "");//"http://example.com:8080/{pathname}/{resource}"
+            uri = uri.replace("{root}", root? root.replace(/\/$/, "") : "");//"http://example.com:8080//pathname/{resource}"
+            uri = uri.replace("{resource}", resource? "/" + resource : "");//"http://example.com:8080//pathname//resource.html"
+            uri = uri.replace(/\/+/g, "/");// replace multiple slashes with only one slash
+            uri = uri.replace("{protocol}", protocol.replace(/(\:)?$/, "://"));//"http://{host}{port}//pathname/resource.html"
 
-            // resourses: /resourse.jpg, /dir/resourse.html
-            // ensure the host and pathname are separated by a slash
-            var address = host + "/" + pathname;
-
-            // address: example.com/directory/dir/resourse.jpg
-            // ensure the resourse is separated by a slash
-            if(typeof resource == 'string' || typeof resource == 'number') {
-                address = address + "/" + resource;
-            }
-
-            // url http://example.com/directory/dir/resourse.jpg
-            // replace multiple slashes with only one slash
-            var url = address.replace(/\/+/g, "/");
-
-            return this.attr('protocol') + "//" + url;
+            return uri;
         };
 
-        // alias for href
+        // alias for uri
+        //---------------------------------------------------------------------
+        this.href = function(resource){
+            return this.uri(resource);
+        };
+
+        // alias for uri
+        //---------------------------------------------------------------------
         this.url = function(resourse){
-            return this.href(resourse);
+            return this.uri(resourse);
         }
 
-        // HREFAUTH URL with basic Authentication
+        // URL with basic Authentication
         //---------------------------------------------------------------------
-        //TODO Situs.hrefAuth('myTV/show/');
-        // http://user:pw@situs.no-ip.org:8080/myTV/show/
-        this.hrefAuth = function(url){
-            url = url || '';
-            if(!this.attr('user') || !this.attr('pw')) return this.href(url);
+        this.hrefAuth = function(resource){
+            var user = this.attr('user'), pw = this.attr('pw');
 
-            var host = this.attr('port') == 80 ? this.attr('hostname') :
-                this.attr('host');
-            var user = this.attr('user');
-            var pw = this.attr('pw');
-            var pathname = this.attr('pathname');
-            var uri = host + '/' + pathname + '/' + url || '';
-            var href = this.attr('protocol') + "//" + user+':'+encodeURIComponent(pw)+'@'+uri.replace(/\/+/g,"/");
+            if(!user || !pw) return this.uri(resource);
 
-            return href;
+            var auth = "//{user}:{pw}@".replace("{user}", user).replace("{pw}", encodeURIComponent(pw));
+
+            return this.uri(resource).replace("//", auth);
         };
 
         // alias for hrefAuth
-        this.urlAuth = function(url){
-            return this.hrefAuth(url);
+        //---------------------------------------------------------------------
+        this.urlAuth = function(resourse){
+            return this.hrefAuth(resourse);
         }
 
         // Script
@@ -288,7 +283,13 @@
 
     frontgate.VERSION = frontgate.version.join(".");
 
-    window.Frontgate = new Frontgate;
+    window.Frontgate = new Frontgate({
+            protocol: window.location.protocol,
+            //host: window.location.host,
+            hostname: window.location.hostname,
+            port: window.location.port,
+            pathname: frontgate.pathname()[1]
+        });
 
     console.info(frontgate.name, frontgate.VERSION);
 })
