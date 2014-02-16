@@ -17,7 +17,7 @@
         };
 
         // Apps Private Object
-        var _apps_ = {};
+        var _apps_ = {}, user = "anonymous", pw;
 
         this.Apps = function(name, app){
             if(!arguments.length) return _apps_;
@@ -45,10 +45,10 @@
         //---------------------------------------------------------------------
         this.attr = function(attr, value){ //console.log(attr + " => " + value);
             if (!arguments.length) {
-                return _attr_;
+                return JSON.parse(JSON.stringify(_attr_));
             }
 
-            // only one argument
+            // only one argument (getter)
             if (typeof value == "undefined") {
                 // argument is a key name
                 if (typeof attr == "string") {
@@ -57,12 +57,17 @@
 
                 // argument is an object
                 for(var k in attr) {
+                    if(k == 'user' || k == 'pw' || k == 'host'){
+                        throw 'can not set attr:' + attr;
+                    }
+
                     this.attr(k, attr[k]);
                 }
 
                 return this;
             }
 
+            // setter
             if(attr != 'user' && attr != 'pw' && attr != 'host'){
                 _attr_[attr] = value;
             }
@@ -79,10 +84,7 @@
             return this;
         };
 
-        this.attr(attributes);
-
         // URL to resourse
-        //
         // @param string path to resourse from root url
         // @return string root url or absolute url to resourse
         // @example Frontgate.uri();
@@ -123,11 +125,12 @@
         // URL with basic Authentication
         //---------------------------------------------------------------------
         this.hrefAuth = function(resource){
-            var user = this.attr('user'), pw = this.attr('pw');
+            if(!user || !pw) {
+                return this.uri(resource);
+            }
 
-            if(!user || !pw) return this.uri(resource);
-
-            var auth = "//{user}:{pw}@".replace("{user}", user).replace("{pw}", encodeURIComponent(pw));
+            var auth = "//{user}:{pw}@".replace("{user}",
+                user).replace("{pw}", encodeURIComponent(pw));
 
             return this.uri(resource).replace("//", auth);
         };
@@ -197,35 +200,40 @@
         };
 
         // alias for sync
+        //---------------------------------------------------------------------
         this.scripts = this.sync;
 
-        // Basic Authorization
+        // Authorization
         // Sets or gets basic auth base64 string 'user:pw'
         // @param object|undefined {user:user, pw:pw}
         // @return object|string
-        // @example auth({user:'guest', pw:'guest'}).auth();// 'Z3Vlc3Q6Z3Vlc3Q='
+        // @example auth({user:'guest', pw:'guest'});
+        // @example .auth();// 'Z3Vlc3Q6Z3Vlc3Q='
         //---------------------------------------------------------------------
         this.auth = function(credentials){
-            if(typeof credentials == 'undefined') return this.attr('auth');
+            if(typeof credentials == 'undefined') {
+                return this.attr('auth');
+            }
 
-            credentials.user = credentials.user || this.attr('user');
+            credentials.user = credentials.user || user;
             credentials.pw = credentials.pw || credentials.user;
 
-            _attr_.user = credentials.user;
-            _attr_.pw = credentials.pw;
+            user = credentials.user;
+            pw = credentials.pw;
+
             _attr_.auth = btoa(credentials.user + ":" + credentials.pw);
 
-            //TODO remove 'userChange' event and keep 'userchange' event
-            if(this.publishEvent) this.publishEvent('userChange', _attr_);
-            if(this.publishEvent) this.publishEvent('userchange', _attr_);
+            // publish 'userchange' event
+            if(this.publishEvent) {
+                this.publishEvent('userchange', {
+                    user: user,
+                    pw: pw,
+                    auth: _attr_.auth
+                });
+            }
 
             return this;
         };
-
-        // set user
-        this.auth({
-            user: 'anonymous'
-        });
 
         // XHR Auth
         // Gets a function that sets Basic Authorization Header on a xhr object
@@ -238,34 +246,28 @@
         // }
         //---------------------------------------------------------------------
         this.xhrAuth = function(user, pw){
-            var self = this;
-            var auth = function(){
-                if(!user || !pw) return self.attr('auth');
-                else return btoa(user + ":" + pw);
-            };
+            var self = this,
+                basicAuth = (!user || !pw)?
+                    self.attr('auth'):  btoa(user + ":" + pw);
 
             return function(xhr) {
-                //console.log('XHR auth()', auth());
-
-                xhr.setRequestHeader("Authorization", "Basic " + auth());
+                xhr.setRequestHeader("Authorization", "Basic " + basicAuth);
                 xhr.withCredentials = true;
             };
         };
 
-        // sets basic authorization (and auth attribute)
-        // requires jQuery
-        if(typeof attributes.user != 'undefined'
-                && typeof attributes.pw != 'undefined')
-            this.auth({
-                user: attributes.user,
-                pw: attributes.pw
-            });
+        this.attr(attributes);
+
+        this.auth({
+            user: user,
+            pw: pw
+        });
 
         this.Location = Frontgate;
 
         for(var i in frontgate){
             if(!this[i]) {
-                //console.log('adding Frontgate',typeof frontgate[i],i);
+                //console.log('adding Frontgate', typeof frontgate[i],i);
                 this[i] =  frontgate[i];
             }
             //else console.log(i, 'EXISTS in Frontagate');
@@ -298,7 +300,7 @@
 })
 ({
     name: "Frontgate",
-    version: [0, 3, 4],
+    version: [0, 3, 5],
 
     // Load Script
     //-------------------------------------------------------------------------

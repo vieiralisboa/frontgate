@@ -108,10 +108,15 @@
         //this.location
         Frontgate.subscribeEvent('userchange', function(attr){
             //TODO locale language?
-            var welcome = "Bem-vindo";
-            var title = attr.user + '@' + attr.hostname;
-            if(attr.user != "anónimo") welcome += ", " + attr.user;
+            var welcome = "Bem-vindo",
+                title = attr.user + '@' + Frontgate.attr("hostname");//attr.hostname;
+
+            if(attr.user != "anónimo") {
+                welcome += ", " + attr.user;
+            }
+
             $('#user').text(attr.user).attr('title',  title);
+
             SITUS.ui.post(welcome);
         });
 
@@ -224,11 +229,7 @@
                 if(!user) return false;
                 pw = pw || user;
 
-                /*/ Basic Auth fo ajax calls
-                SITUS.location.auth({
-                    user: user,
-                    pw: pw
-                });//*/
+                // Basic Auth fo ajax calls
                 Frontgate.auth({
                     user: user,
                     pw: pw
@@ -252,11 +253,11 @@
         situs.location = JSON.parse(localStorage.getItem("situs")) || {};
 
         // user auth
+        var auth = Frontgate.utf8(situs.location.auth).split(":");
         Frontgate.auth({
-            user: situs.location.user || "anonymous",
-            pw: situs.location.pw || situs.location.user || "anonymous"
+            user: auth[0] || "anonymous",
+            pw: auth[1] || "anonymous"
         });
-
 
         // callback
         if(data.callback){
@@ -294,7 +295,7 @@
     console.info(situs.name, situs.version.join('.'));
 })
 ({
-    version: [0, 1, 1],
+    version: [0, 1, 2],
     name: "Frontgate Situs",
     getBar: function(selector){
         var index = $(selector).find(".bar").first().attr("data-bar");
