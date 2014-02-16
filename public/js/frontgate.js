@@ -231,8 +231,11 @@
         // Gets a function that sets Basic Authorization Header on a xhr object
         // @param string user the username
         // @param string pw the password
-        // @return function the setter of basic Authorization Header on a xhr object
-        // @example xhrAuth('guest', 'guest');// f(xhr){ xhr.setRequestHeader("Authorization", "Basic Z3Vlc3Q6Z3Vlc3Q="); }
+        // @return function the basic Authorization Header for the xhr object
+        // @example xhrAuth('guest', 'guest');
+        // => f(xhr){
+        //    xhr.setRequestHeader("Authorization", "Basic Z3Vlc3Q6Z3Vlc3Q=");
+        // }
         //---------------------------------------------------------------------
         this.xhrAuth = function(user, pw){
             var self = this;
@@ -295,7 +298,7 @@
 })
 ({
     name: "Frontgate",
-    version: [0, 3, 3],
+    version: [0, 3, 4],
 
     // Load Script
     //-------------------------------------------------------------------------
