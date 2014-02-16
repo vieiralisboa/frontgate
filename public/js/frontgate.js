@@ -221,7 +221,7 @@
             user = credentials.user;
             pw = credentials.pw;
 
-            _attr_.auth = btoa(credentials.user + ":" + credentials.pw);
+            _attr_.auth = this._basicAuth(credentials.user, credentials.pw);
 
             // publish 'userchange' event
             if(this.publishEvent) {
@@ -248,12 +248,55 @@
         this.xhrAuth = function(user, pw){
             var self = this,
                 basicAuth = (!user || !pw)?
-                    self.attr('auth'):  btoa(user + ":" + pw);
+                    self.attr('auth'): this._basicAuth(user, pw);
 
             return function(xhr) {
                 xhr.setRequestHeader("Authorization", "Basic " + basicAuth);
                 xhr.withCredentials = true;
             };
+        };
+
+        // Basic Authorization
+        // basicAuth({ user:"daniel", pw:"leinad" });// "ZGFuaWVsOmxlaW5hZA=="
+        // basicAuth("ZGFuaWVsOmxlaW5hZA==");// {user:"daniel", pw:"dem0nio"}
+        // basicAuth("daniel", "leinad");// "ZGFuaWVsOmxlaW5hZA=="
+        // basicAuth();// { auth:"ZGFuaWVsOmx...", user:"daniel", pw:"leinad" }
+        //---------------------------------------------------------------------
+        this.basicAuth = function(credentials, pw) {
+            var auth;
+
+            if(typeof pw != "undefined") {
+                return this._basicAuth(credentials, pw);
+            }
+
+            if(typeof credentials == "undefined") {
+                auth = frontgate.utf8(this.attr("auth")).split(":");
+                return {
+                    auth: this._basicAuth(auth[0], auth[1]),
+                    user: auth[0],
+                    pw: auth[1]
+                }
+            }
+
+            if(typeof credentials == "string") {
+                auth = frontgate.utf8(credentials).split(":");
+                return {
+                    user: auth[0],
+                    pw: auth[1]
+                }
+            }
+
+            if(typeof credentials == "object"){
+                if(credentials.user && credentials.pw ) {
+                    return this._basicAuth(credentials.user, credentials.pw);
+                }
+            }
+
+            return false;
+        };
+
+        this._basicAuth = function(user, pw){
+            return btoa(user + ":" + pw);
         };
 
         this.attr(attributes);
@@ -300,7 +343,7 @@
 })
 ({
     name: "Frontgate",
-    version: [0, 3, 5],
+    version: [0, 3, 6],
 
     // Load Script
     //-------------------------------------------------------------------------

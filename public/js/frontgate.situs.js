@@ -253,11 +253,7 @@
         situs.location = JSON.parse(localStorage.getItem("situs")) || {};
 
         // user auth
-        var auth = Frontgate.utf8(situs.location.auth).split(":");
-        Frontgate.auth({
-            user: auth[0] || "anonymous",
-            pw: auth[1] || "anonymous"
-        });
+        Frontgate.auth(Frontgate.basicAuth(situs.location.auth));
 
         // callback
         if(data.callback){
@@ -295,7 +291,7 @@
     console.info(situs.name, situs.version.join('.'));
 })
 ({
-    version: [0, 1, 2],
+    version: [0, 1, 3],
     name: "Frontgate Situs",
     getBar: function(selector){
         var index = $(selector).find(".bar").first().attr("data-bar");
