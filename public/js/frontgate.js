@@ -1,6 +1,7 @@
 // Frontgate JavaScript Library
 
 (function(frontgate){
+    var version = [0, 3, 8];
 
     window.btoa = window.btoa || frontgate.btoa
 
@@ -311,6 +312,21 @@
         _frontgate(this);
 
         this._on(this);
+
+        Object.defineProperties(this, {
+            VERSION: {
+                value: version.join("."),
+                writeable: false
+            },
+            NAME: {
+                value: "Frontgate",
+                writeable: false
+            },
+            version: {
+                value: version,
+                writeable: false
+            },
+        });
     };
 
     // adds frontgate methods to object
@@ -324,22 +340,17 @@
         return o;
     }
 
-    frontgate.VERSION = frontgate.version.join(".");
-
     window.Frontgate = new Frontgate({
-            protocol: window.location.protocol,
-            //host: window.location.host,
-            hostname: window.location.hostname,
-            port: window.location.port,
-            pathname: frontgate.pathname()[1]
-        });
+        protocol: window.location.protocol,
+        //host: window.location.host,
+        hostname: window.location.hostname,
+        port: window.location.port,
+        pathname: frontgate.pathname()[1]
+    });
 
-    console.info(frontgate.name, frontgate.VERSION);
+    console.info(window.Frontgate.NAME, window.Frontgate.VERSION);
 })
 ({
-    name: "Frontgate",
-    version: [0, 3, 7],
-
     // Load Script
     //-------------------------------------------------------------------------
     loadScript: function(src, callback){
