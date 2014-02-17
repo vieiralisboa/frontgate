@@ -306,27 +306,22 @@
             pw: pw
         });
 
-        this.Location = Frontgate;
+        this.Location = _frontgate(Frontgate);
 
-        for(var i in frontgate){
-            if(!this[i]) {
-                //console.log('adding Frontgate', typeof frontgate[i],i);
-                this[i] =  frontgate[i];
-            }
-            //else console.log(i, 'EXISTS in Frontagate');
-        }
+        _frontgate(this);
 
         this._on(this);
     };
 
+    // adds frontgate methods to object
     //-------------------------------------------------------------------------
-    // Location free methods (free as in 'do not depend of')
-    //TODO remove from instace keep only in Frontgate?
-    //-------------------------------------------------------------------------
-    for (var i in frontgate) {
-        if(!Frontgate[i]) {
-            Frontgate[i] = frontgate[i];
+    function _frontgate(o){
+        for (var i in frontgate) {
+            if(!o[i]) {
+                o[i] = frontgate[i];
+            }
         }
+        return o;
     }
 
     frontgate.VERSION = frontgate.version.join(".");
@@ -343,7 +338,7 @@
 })
 ({
     name: "Frontgate",
-    version: [0, 3, 6],
+    version: [0, 3, 7],
 
     // Load Script
     //-------------------------------------------------------------------------
