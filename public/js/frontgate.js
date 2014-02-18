@@ -678,6 +678,6 @@
     },
 
     clone: function(o){
-        return JSON.parse(JSON.stringify(ro));
+        return JSON.parse(JSON.stringify(o));
     }
 });
