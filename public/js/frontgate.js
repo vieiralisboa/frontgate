@@ -573,7 +573,6 @@
     //TODO move into dependent Frontgate
     //-------------------------------------------------------------------------
     _on: function(o){
-        //console.log('FRONTGATE EVENT HANDLER', o);
 
         o.publishEvent = function(event, data){
             //console.log('<<<'+event+'>>>', this);
@@ -620,7 +619,7 @@
     // Frontgate.b64(utf8) utf8_to_b64
     //-------------------------------------------------------------------------
     b64: function(str){
-        return window.btoa(unescape(encodeURIComponent( str )));
+        return window.btoa(decodeURIComponent( str ));
     },
 
     // Frontgate.utf8(b64)b64_to_utf8
@@ -629,15 +628,18 @@
         return decodeURIComponent(escape(window.atob( str )));
     },
 
-    // base64 encode
+    // base64 encode (not for international characters!)
     //-------------------------------------------------------------------------
     btoa: function(input) {
-        var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+        var keyStr, output = "", i = 0,
+            chr1, chr2, chr3 = "",
+            enc1, enc2, enc3, enc4 = "";
+
         input = escape(input);
-        var output = "";
-        var chr1, chr2, chr3 = "";
-        var enc1, enc2, enc3, enc4 = "";
-        var i = 0;
+
+        keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        keyStr += keyStr.toLowerCase();
+        keyStr += "0123456789+/=";
 
         do {
             chr1 = input.charCodeAt(i++);
