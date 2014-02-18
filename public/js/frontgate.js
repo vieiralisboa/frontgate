@@ -51,7 +51,7 @@
         //---------------------------------------------------------------------
         this.attr = function(attr){
             if (!arguments.length) {
-                return JSON.parse(JSON.stringify(_attr_));
+                return this.clone(_attr_);
             }
 
             // getter (argument is a key name)
@@ -665,7 +665,7 @@
     // adds readonly properties to an object
     //-------------------------------------------------------------------------
     ro: function(o, ro){
-        var ro = JSON.parse(JSON.stringify(ro));
+        var ro = this.clone(ro);
 
         for(var n in ro) {
             ro[n] = {
@@ -675,5 +675,9 @@
         }
 
         return Object.defineProperties(o, ro);
+    },
+
+    clone: function(o){
+        return JSON.parse(JSON.stringify(ro));
     }
 });
