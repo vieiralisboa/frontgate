@@ -1,7 +1,7 @@
 // Frontgate JavaScript Library
 
 (function(frontgate){
-    var version = [0, 3, 8];
+    var version = [0, 3, 9];
 
     window.btoa = window.btoa || frontgate.btoa
 
@@ -10,11 +10,12 @@
 
         // Location Private Object
         var _attr_ = {
+            auth: null,
             protocol: "http",
             host: window.location.host,
             hostname: window.location.hostname,
-            port: null,
-            pathname: ""
+            port: 80,
+            pathname: null
         };
 
         // Apps Private Object
@@ -43,43 +44,41 @@
         };
 
         // Location attributes
+        //attr({ hostname: "situs.pt", port: 8080 });// Frontgate
+        //attr('port');// 8080
+        //attr();// { hostname: "situs.pt", port: 8080 }
+        //attr().port;// 8080
         //---------------------------------------------------------------------
-        this.attr = function(attr, value){ //console.log(attr + " => " + value);
+        this.attr = function(attr){
             if (!arguments.length) {
                 return JSON.parse(JSON.stringify(_attr_));
             }
 
-            // only one argument (getter)
-            if (typeof value == "undefined") {
-                // argument is a key name
-                if (typeof attr == "string") {
-                    return _attr_[attr];
-                }
+            // getter (argument is a key name)
+            if (typeof attr == "string") {
+                return _attr_[attr];
+            }
 
-                // argument is an object
-                for(var k in attr) {
-                    if(k == 'user' || k == 'pw' || k == 'host'){
-                        throw 'can not set attr:' + attr;
+            // one time setter
+            if(!this.attr.set) {
+                //TODO validate values
+                attr.hostname = attr.hostname || _attr_.hostname;
+                attr.pathname = attr.pathname || _attr_.pathname;
+                attr.protocol = attr.protocol || _attr_.protocol;
+                attr.port = attr.port || (attr.protocol.match(/^https(\:)?$/)? 443 : _attr_.port);
+                attr.host = attr.hostname + (attr.port == 80 || attr.port == 443? "" : ":" + attr.port);
+
+                //frontgate.ro(_attr_, attr);
+                for(var key in attr){
+                    if(_attr_[key] != attr[key]) {
+                        _attr_[key] = attr[key]
                     }
-
-                    this.attr(k, attr[k]);
                 }
 
-                return this;
-            }
+                // readonly Frontgate attribute urlRoot
+                frontgate.ro(this, { urlRoot: this.url() });
 
-            // setter
-            if(attr != 'user' && attr != 'pw' && attr != 'host'){
-                _attr_[attr] = value;
-            }
-            else {
-                throw 'can not set attr:' + attr;
-            }
-
-            if(attr == 'hostname' || attr == 'port') {
-                var hostname = attr.hostname || _attr_.hostname;
-                var port = attr.port || _attr_.port;
-                _attr_.host = hostname + (!port || port == 80 ? "" : ":" + port);
+                this.attr.set = 1;
             }
 
             return this;
@@ -98,11 +97,11 @@
                 protocol = this.attr('protocol'),
                 host = this.attr('host'),
                 root = this.attr('pathname'),
-                uri = "{protocol}{host}{port}/{root}{resource}";
+                uri = "{protocol}{host}/{root}{resource}";
 
             //TODO template
             uri = uri.replace("{host}", host);//"http://example.com{port}/{pathname}/{resource}"
-            uri = uri.replace("{port}", port? ":" + port : "");//"http://example.com:8080/{pathname}/{resource}"
+            //uri = uri.replace("{port}", port? ":" + port : "");//"http://example.com:8080/{pathname}/{resource}"
             uri = uri.replace("{root}", root? root.replace(/\/$/, "") : "");//"http://example.com:8080//pathname/{resource}"
             uri = uri.replace("{resource}", resource? "/" + resource : "");//"http://example.com:8080//pathname//resource.html"
             uri = uri.replace(/\/+/g, "/");// replace multiple slashes with only one slash
@@ -116,9 +115,6 @@
         this.href = function(resource){
             return this.uri(resource);
         };
-
-        // alias for uri
-        //---------------------------------------------------------------------
         this.url = function(resourse){
             return this.uri(resourse);
         }
@@ -296,6 +292,7 @@
             return false;
         };
 
+        //---------------------------------------------------------------------
         this._basicAuth = function(user, pw){
             return btoa(user + ":" + pw);
         };
@@ -307,25 +304,20 @@
             pw: pw
         });
 
+        // add Location constructor
         this.Location = _frontgate(Frontgate);
 
+        // add frontgate methods
         _frontgate(this);
 
+        // add event handler
         this._on(this);
 
-        Object.defineProperties(this, {
-            VERSION: {
-                value: version.join("."),
-                writeable: false
-            },
-            NAME: {
-                value: "Frontgate",
-                writeable: false
-            },
-            version: {
-                value: version,
-                writeable: false
-            },
+        // add readonly properties
+        this.ro(this, {
+            VERSION: version.join("."),
+            NAME: "Frontgate",
+            version: version
         });
     };
 
@@ -421,9 +413,11 @@
                     }
                 }
 
-                if( scripts.length ) sync.script( scripts.shift(), function(script){
-                    sync.scripts(scripts);
-                });
+                if( scripts.length ){
+                    sync.script( scripts.shift(), function(script){
+                        sync.scripts(scripts);
+                    });
+                }
             }
             //else console.log('loadSync done');
         }
@@ -483,8 +477,10 @@
     // get/set attribute without jquery
     //-------------------------------------------------------------------------
     attribute: function(el, attr, val){
-        if(typeof val == 'undefined')
+        if(typeof val == 'undefined') {
             return (document.getElementsByTagName(el)[0]).getAttribute(attr);
+        }
+
         (document.getElementsByTagName(el)[0]).setAttribute(attr, val);
     },
 
@@ -522,11 +518,13 @@
         return path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '');
     },
 
+    //-------------------------------------------------------------------------
     pathname: function(pathname){
         pathname = pathname || window.location.pathname;
         return pathname.match(/^((\/[\w\.\-]+)*)\/([\w\.\-]+)?$/);
     },
 
+    //-------------------------------------------------------------------------
     remote: function(attr){
         // remote location exists
         if(this.remote._remote) {
@@ -573,12 +571,15 @@
     LOG: false,
 
     //TODO move into dependent Frontgate
+    //-------------------------------------------------------------------------
     _on: function(o){
         //console.log('FRONTGATE EVENT HANDLER', o);
 
         o.publishEvent = function(event, data){
             //console.log('<<<'+event+'>>>', this);
-            if(this.events[event]) this.events[event](data);
+            if(this.events[event]) {
+                this.events[event](data);
+            }
         }
 
         o.events = {};
@@ -588,7 +589,9 @@
             if(!this.events[name]){
                 // event
                 this.events[name] = function(e){
-                    for(var i in this[name].stack) this[name].stack[i](e);
+                    for(var i in this[name].stack){
+                        this[name].stack[i](e);
+                    }
                 };
                 // event stack
                 this.events[name].stack = [];
@@ -615,16 +618,19 @@
     },
 
     // Frontgate.b64(utf8) utf8_to_b64
+    //-------------------------------------------------------------------------
     b64: function(str){
         return window.btoa(unescape(encodeURIComponent( str )));
     },
 
     // Frontgate.utf8(b64)b64_to_utf8
+    //-------------------------------------------------------------------------
     utf8: function(str){
         return decodeURIComponent(escape(window.atob( str )));
     },
 
     // base64 encode
+    //-------------------------------------------------------------------------
     btoa: function(input) {
         var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
         input = escape(input);
@@ -654,5 +660,20 @@
         while (i < input.length);
 
         return output;
+    },
+
+    // adds readonly properties to an object
+    //-------------------------------------------------------------------------
+    ro: function(o, ro){
+        var ro = JSON.parse(JSON.stringify(ro));
+
+        for(var n in ro) {
+            ro[n] = {
+                value: ro[n],
+                writeable: false
+            }
+        }
+
+        return Object.defineProperties(o, ro);
     }
 });
