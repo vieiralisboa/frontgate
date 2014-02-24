@@ -45,6 +45,16 @@ function bars($HTML, $JSON)
             //die("https://{$config->remote->hostname}/index.html");
         }
 
+        // user agent SO
+        $OS = array('Windows', 'Win', 'Android', 'Linux', 'Mac', 'X11');
+        foreach ($OS as $os) {
+            $pos = stripos(strtolower($_SERVER['HTTP_USER_AGENT']), strtolower($os));
+            if( $pos !== false ) {
+                $config->data->os = $os;
+                break;
+            }
+        }
+
         // received headers from the server (Remote location is online)
         if($headers)
         {

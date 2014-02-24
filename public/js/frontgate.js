@@ -544,7 +544,7 @@
                 hostname: hostname,
                 pathname: attr.pathname || "/",
                 protocol: attr.protocol || "http:",
-                port: attr.port || null,
+                port: attr.port || null
             });
             return this.remote._remote;
         }
