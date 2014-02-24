@@ -1,5 +1,7 @@
 //!script default.js
 
+$('html').attr('data-os') != 'Android' || Remote.script("jquery-ui/touch-punch/jquery.ui.touch-punch.min.js");
+
 // contact email
 $("#contact").attr("href", "mailto:%address%%query%"
     .replace("%address%", "info%a%situs.pt")
