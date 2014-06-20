@@ -76,8 +76,14 @@
     route: function(hash, callback){
         hash = this.hash(hash);
 
+        //DEBUG
+        //alert(hash);
+
         // #<base>/:value
         var base = this.base(hash);
+
+        //DEBUG
+        //alert(base);
 
         // route not found in routes
         if(!this.routes[base])
@@ -101,6 +107,8 @@
                 return route;
             }
         }
+
+        //alert(hash+" NOT FOUND");
 
         //TODO fallback to #<base> if #<base>/:name is not found
 
@@ -144,7 +152,7 @@
             return new RegExp(regexp + "$");
         }
 
-        var defaultPart = '\\:?([\\w\\.\\-]*)';//\\_
+        var defaultPart = '\\:?([\\w\\.\\-\\\\]*)';//\\_
         var lastPart = '\\:?(.*)';
         var last = hashArray.length - 1;
 
