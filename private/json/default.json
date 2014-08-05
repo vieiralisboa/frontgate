@@ -1,7 +1,7 @@
 {
     "head": {
         "title": "Frontgate",
-        "description": "Plain Simple Webpage Your Way",
+        "description": "Your Own Webpage Already Exists",
         "script":"js/default.js",
         "stylesheet": "css/default.css",
         "lang":"en",
@@ -14,23 +14,21 @@
         }
     },
     "remote" : {
-        "_hostname": "situs.xn--stio-vpa.pt",
-        "hostname": "xn--stio-vpa.pt",
-        "protocol": "https:",
-        "port": null,
         "disabled": false,
-        "_": {
-            "_": [
-                "Location of the Dungeon server",
-                "Dungeon is the remote server running Situs PHP Framework"
-            ]
-        }
+        "hostname": "situs.no-ip.org",
+        "_hostname": "xn--stio-vpa.pt",
+        "protocol": "http:",
+        "_protocol": "https:",
+        "port": null,
+        "_": [
+            "Location of the Dungeon server",
+            "Dungeon is the remote server running Situs PHP Framework"
+        ]
     },
     "host": "default",
     "shebang": {
         "dir": "/htdocs/libs/jquery.bar/js/",
-        "home": "/htdocs/sites/frontgate/private/json/",
-        "_home": null,
+        "home": null,
         "_": {
             "dir": [
                 "path or url to the json files",
@@ -55,7 +53,7 @@
         },
         "body": {
             "items":[{
-                "text": "Frontgate JS",
+                "text": "Bars",
                 "attr": {
                     "class": "title",
                     "title": "Shebang Website for Frontgate Situs",
@@ -63,7 +61,7 @@
                 }
             },
             {
-                "text": "JavaScript Library",
+                "text": "PHP Shebang Boilerplate for JS Bar",
                 "attr": {
                     "class": "subtitle"
                 }
