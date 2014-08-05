@@ -7,7 +7,4 @@ if($_SERVER['HTTPS'] != "on") {
 	exit;
 }//*/
 
-// settings file (in the private folder)
-$json = 'default.json';
-
 include "../private/start.php";
