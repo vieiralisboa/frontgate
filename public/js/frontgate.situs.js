@@ -26,8 +26,8 @@
         this.remote = new Frontgate.Location({
             hostname: $('html').attr("data-remote_hostname"),// example.com
             pathname: "/",
-            protocol:  $('html').attr("data-remote_protocol"),// http/https
-            port: $('html').attr("data-remote_protocol") == "https:" ? "": $('html').attr("data-remote_protocol"),
+            protocol:  $('html').attr("data-remote_protocol"),// http:/https:
+            port: $('html').attr("data-remote_protocol") == "https:" ? "": $('html').attr("data-remote_port"),
             requestHash: location.hash,//!important
             requestMethod: $('html').attr("data-requet_method"),
             requestTime: parseInt($('html').attr("data-request_time")),
@@ -39,7 +39,7 @@
         var API = {
             hostname: "situs.xn--stio-vpa.pt",
             pathname: "/",
-            protocol: "https:",
+            protocol: "http:",
             //port: 443,
             requestHash: location.hash,//!important
             requestMethod: $('html').attr("data-requet_method"),
@@ -58,16 +58,18 @@
 
         this.remote
             .stylesheet('jquery.panel/panel.css')
+            //.stylesheet('hosts/xn--stio-vpa.pt/css/situs.start.css')
             .stylesheet('jquery.bar/css/bar.css');
 
         if(data.stylesheets) {
-            if(typeof data.stylesheets == "string")
+            if(typeof data.stylesheets == "string"){
                 this.remote.stylesheet(data.stylesheets);
+            }
             else for(var i in data.stylesheets)
                 this.remote.stylesheet(data.stylesheets[i]);
         }
 
-        window.onbeforeunload = function(){
+        if(false) window.onbeforeunload = function(){
             //return 'It looks like you have been editing something -- if you leave before submitting your changes will be lost.'
             return 'Ao sair deste sítio, os dados que estiverem por guardar poderão ser perdidos.';
         };
