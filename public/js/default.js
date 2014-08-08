@@ -1,6 +1,6 @@
 //!script default.js
 
-$('html').attr('data-os') != 'Android' || Remote.script("jquery-ui/touch-punch/jquery.ui.touch-punch.min.js");
+//$('html').attr('data-os') != 'Android' || Remote.script("jquery-ui/touch-punch/jquery.ui.touch-punch.min.js");
 
 // contact email
 $("#contact").attr("href", "mailto:%address%%query%"
@@ -8,26 +8,25 @@ $("#contact").attr("href", "mailto:%address%%query%"
     .replace("%a%", "@")
     .replace("%query%", "?Subject=Frontgste%20Host"));
 
+$('noscript').remove();
+$('#notice').find('a').text('Welcome');
+
+// clear notice after 5 seconds
+setTimeout(function(){
+    $('#notice').fadeOut("slow", function(){
+        $(this).find('a').text('');
+    });
+}, 5000);//*/
+
 // remote location
 (function(remote){
-    $('noscript').remove();
-    $('#notice').find('a').text('Welcome');
-
     if(!remote) return  $('#notice').find('a').text('#!Shebang').attr({
         "title": "This is a shebang request.",
         "href": "?_escaped_fragment_=Shebang"
     });
 
-    // clear notice after 5 seconds
-    setTimeout(function(){
-        $('#notice').fadeOut("slow", function(){
-            $(this).find('a').text('');
-        });
-    }, 5000);//*/
-
-    $.getScript("https://situs.xn--stio-vpa.pt/situs/js/frontgate?router",
+    $.getScript("http://localhost/situs/js/frontgate?router",
             function(data, textStatus, jqxhr){
-
         // start router
         Frontgate.router.start();
 
@@ -41,7 +40,7 @@ $("#contact").attr("href", "mailto:%address%%query%"
         });
 
         //TESTS Frontgate router
-        if(0){
+        if(false){
             // create routes
             Frontgate.router.on("#Frontgate/router", function(route){
                 console.info("route >>>", route.req[0]);
@@ -49,29 +48,33 @@ $("#contact").attr("href", "mailto:%address%%query%"
             Frontgate.router.on("#Frontgate/situs", function(route){
                 console.info("route >>>", route.req[0]);
             });
+
             Frontgate.router.route('#Frontgate/router', function(hash, base, _hash, route){
                 console.info("route >>>", hash ,">>> callabck", arguments);
             });
             Frontgate.router.route('#Frontgate/situs', function(hash, base, _hash, route){
                 console.info("route >>>", hash ,">>> callabck", arguments);
             });
+
             Frontgate.router.route('#Test2/two', function(hash, base, _hash, route){
                 console.info("route >>>", hash ,">>> callabck", arguments);
             });
-        }
+        }//*/
 
-        // create remote location
-        Remote = new Frontgate.Location({
-            hostname: $('html').attr("data-remote_hostname"),// example.com
+        // SITUS location
+        Situs = new Frontgate.Location({
+            hostname: $('html').attr("data-situs_hostname"),// example.com
             pathname: "/",
-            protocol:  $('html').attr("data-remote_protocol")
+            port: parseInt($('html').attr("data-situs_port")),
+            protocol: $('html').attr("data-situs_protocol")
         });
 
-        // create situs location
-        Situs = new Frontgate.Location({
-            hostname: "situs.xn--stio-vpa.pt",
+        // create a remote location
+        Remote = new Frontgate.Location({
+            hostname: "localhost",
             pathname: "/",
-            protocol:  "https:"//!important "https:" and NOT "https"
+            port: 80,
+            protocol: "http:" //"https:"//!important "https:" and NOT "https"
         });
 
         $.ajaxSetup({
@@ -81,36 +84,47 @@ $("#contact").attr("href", "mailto:%address%%query%"
         // load Zé Bar
         //if(0)
         Remote.script("jquery.bar/js/bar.js", function(){
+
+            // CREATE BAR
             // make the header bar
             $("#header").bar({
                 items:[{
-                    text:"FRONTGATE JAVASCRIPT LIBRARY",
+                    text:"FRONTGATE JAVASCRIPT LIBRARY BAR",
                     attr:{
                         style: "color: silver; font-size: 26px; opacity: .25; text-shadow: 0 0 10px 5px black; padding: 3px 6px"
                     }
                 }],
                 callback: function(bar, app){
                     bar.$bar.css({
-                        "background-color": "rgba(255,255,255,.05)"
+                        "background-color": "rgba(255,255,255,.1)"
                     });
                 }
             });
 
-            // load bar stylesheet from Remote location
+            // load bar stylesheet from Remote remote location
             Bar.styles.load(Remote);
 
-            // auto load bars from Situs location
-            Bar.start(Situs);// requires situs controller + Frontgate
+            // auto load bars from Situs remote location
+            // requires situs controller Bar/Situs
+            // requires Frontgate Router
+            Bar.start(Situs);
 
-            Bar.route("#Frontgate");
-
+            // AUTO LOADING A BAR
             // load bar from script
-            switch(0){
+            switch(4){
+                case 0:
+                    // route to #Hash auto loads the bar
+                    // Bar.route() => Frontgate.router.route()
+                    Bar.route("#Frontgate");
+                    break;
+
+                //TODO
                 // from json file to access bar and app
                 case 1:
                     Bar.load("#header", function(bar, app){
                         console.info(arguments);//[Bar, bar Object]
-                    }, "jquery.bar/js/bar.Frontgate.json");
+                    }, { jsonp: "jquery.bar/js/bar.Frontgate.json" });
+
                     //$("#header").bar("bar.Frontgate.json", callback);
                     break;
 
@@ -129,8 +143,8 @@ $("#contact").attr("href", "mailto:%address%%query%"
                     break;
 
                 case 4:
-                     var urls = Bar.urls("#Frontgate");
-                    console.log("urls", urls);//{name: "Frontgate", script: "situs/js/bar?Frontgate", hash: "#Frontgate", match: Array[3]}
+                    var urls = Bar.urls("#Frontgate");
+                    console.info("urls", urls);//{name: "Frontgate", script: "situs/js/bar?Frontgate", hash: "#Frontgate", match: Array[3]}
                     Bar.getBar(urls, function(){
                         console.info(arguments);//[undefined, "success", jqxhr Object]
                     });
@@ -140,7 +154,7 @@ $("#contact").attr("href", "mailto:%address%%query%"
                     location.hash = location.hash=="#Frontgate"? "#!Frontgate" : "#Frontgate";
                     break;
                 default:
-            }
+            }//*/
         });
     });
-})($("html").attr("data-remote_host"));
+})($("html").attr("data-remote"));

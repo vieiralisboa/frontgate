@@ -1,45 +1,35 @@
 {
+    "host": "default",
     "head": {
         "title": "Frontgate",
         "description": "Your Own Webpage Already Exists",
-        "script":"js/default.js",
+        "script": "js/default.js",
         "stylesheet": "css/default.css",
         "lang":"en",
         "favicon":"favicon.png"
     },
-    "data": {
-        "ga":  "UA-XXXXXXXX-X",
-        "_": {
-            "ga": "Google Analytics ID"
-        }
-    },
     "remote" : {
-        "disabled": false,
-        "hostname": "situs.no-ip.org",
-        "_hostname": "xn--stio-vpa.pt",
-        "protocol": "http:",
-        "_protocol": "https:",
-        "port": null,
+        "disabled": true,
+        "script" : "http://situs.no-ip.org/frontgate/js/index.js",
         "_": [
-            "Location of the Dungeon server",
-            "Dungeon is the remote server running Situs PHP Framework"
+            "The remote server where host site is stored"
         ]
     },
-    "host": "default",
+    "situs": {
+        "disabled": false,
+        "hostname": "localhost",
+        "protocol": "http:",
+        "port": 8080,
+        "_": ["Server with Situs PHP Framework installed"]
+    },
     "shebang": {
         "dir": "/htdocs/libs/jquery.bar/js/",
         "home": null,
-        "_": {
-            "dir": [
-                "path or url to the json files",
-                "a non secure http protocol url (not https)"
-            ],
-            "home": [
-                "path or url to the Home json file",
-                "json files: the Bar addon/hashbang config files"
-            ],
-            "_": "remove or set falsy values to use the defaults"
-        }
+        "_": [
+            "dir: path or url to the json files a non secure http protocol url (not https)",
+            "home: path or url to the Home json file (the Bar addon/hashbang config files)",
+            ": remove or set falsy values to use the defaults"
+        ]
     },
     "bars": {
         "header": {
@@ -99,6 +89,12 @@
                 "el": "a",
                 "text": "JavaScript is disabled"
             }]
+        }
+    },
+    "data": {
+        "ga":  "UA-XXXXXXXX-X",
+        "_": {
+            "ga": "Google Analytics ID"
         }
     }
 }
