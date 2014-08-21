@@ -4,7 +4,7 @@
 error_reporting(0);
 
 // Default Host Settings
-$json = 'default.json';
+if(empty($json)) $json = 'default.json';
 
 // Load Config file
 $root = dirname(__FILE__);
