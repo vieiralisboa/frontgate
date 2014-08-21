@@ -22,22 +22,21 @@
         // set webpage title
         document.title = data.title || data.name || document.title;
 
-        // Remote location from html header
+        // Docs/Libs location
         this.remote = new Frontgate.Location({
-            hostname: $('html').attr("data-remote_hostname"),// example.com
+            hostname: "libs.situs.pt",//$('html').attr("data-remote_hostname"),
             pathname: "/",
-            protocol:  $('html').attr("data-remote_protocol"),// http:/https:
-            port: $('html').attr("data-remote_protocol") == "https:" ? "": $('html').attr("data-remote_port"),
+            protocol:  "http:",//$('html').attr("data-remote_protocol"),
+            port: 80, //$('html').attr("data-remote_protocol") == "https:" ? "": $('html').attr("data-remote_port"),
             requestHash: location.hash,//!important
             requestMethod: $('html').attr("data-requet_method"),
             requestTime: parseInt($('html').attr("data-request_time")),
             remoteAddr: $('html').attr("data-remote_addr")
         });
 
-        // Remote API location from user
-        // defaults
+        // defaults for Situs Framework location Bar controller
         var API = {
-            hostname: "situs.xn--stio-vpa.pt",
+            hostname: "situs.pt",
             pathname: "/",
             protocol: "http:",
             //port: 443,
@@ -54,14 +53,15 @@
         Frontgate.router.start(this);
 
         // auto load bars
-        Bar.start(this.location);
+        Bar.autoLoad.start(this.location);
 
+        //TODO fix this bad implementation
         this.remote
-            .stylesheet('jquery.panel/panel.css')
-            //.stylesheet('hosts/xn--stio-vpa.pt/css/situs.start.css')
-            .stylesheet('jquery.bar/css/bar.css');
+            .stylesheet('jquery.panel/panel.css');
+            //.stylesheet('jquery.bar/css/bar.css');
 
         if(data.stylesheets) {
+            console.warn("data.stylesheets", data.stylesheets);
             if(typeof data.stylesheets == "string"){
                 this.remote.stylesheet(data.stylesheets);
             }
@@ -249,7 +249,10 @@
             return situs;
         };
 
-        if(data.script) this.location.script(data.script);
+        if(data.script){
+            //console.warn("data.script", data.script);
+            this.location.script(data.script);
+        }
 
         // get user data from storage
         situs.location = JSON.parse(localStorage.getItem("situs")) || {};
@@ -293,7 +296,7 @@
     console.info(situs.name, situs.version.join('.'));
 })
 ({
-    version: [0, 1, 3],
+    version: [0, 2, 0],
     name: "Frontgate Situs",
     getBar: function(selector){
         var index = $(selector).find(".bar").first().attr("data-bar");
