@@ -72,7 +72,7 @@ setTimeout(function(){
         // create a remote location
         Remote = new Frontgate.Location({
             hostname: "localhost",
-            pathname: "/",
+            pathname: "/jquery.bar/",
             port: 80,
             protocol: "http:" //"https:"//!important "https:" and NOT "https"
         });
@@ -81,11 +81,14 @@ setTimeout(function(){
             beforeSend: Situs.xhrAuth()
         });
 
-        // load Zé Bar
-        //if(0)
-        Remote.script("jquery.bar/js/bar.js", function(){
-
-            // CREATE BAR
+        // loading JS Bar
+        //----------------------------------------------------------------
+        // 1. direct loading with jQuery
+        //$.getScript("http://localhost/jquery.bar/js/bar.js", function(){
+        // 2. using Frontgate location
+        //Frontgate.script("js/bar.js", function(){
+        // 3. using Situs Bar controller
+        Situs.script("bar", function(){
             // make the header bar
             $("#header").bar({
                 items:[{
@@ -101,21 +104,25 @@ setTimeout(function(){
                 }
             });
 
-            // load bar stylesheet from Remote remote location
-            Bar.styles.load(Remote);
+            // loading bar stylesheet
+            //--------------------------
+            Situs.stylesheet("bar/css");
+            //Bar.styles.load(Remote);
+            //Bar.API.get("css");
 
             // auto load bars from Situs remote location
             // requires situs controller Bar/Situs
             // requires Frontgate Router
-            Bar.start(Situs);
+            //-------------------------------------------
+            Bar.autoLoad.start(Situs);
 
-            // AUTO LOADING A BAR
+            // AUTO LOAD USAGE
             // load bar from script
-            switch(4){
+            switch(0){
                 case 0:
                     // route to #Hash auto loads the bar
                     // Bar.route() => Frontgate.router.route()
-                    Bar.route("#Frontgate");
+                    Bar.autoLoad.route("#Frontgate");
                     break;
 
                 //TODO
