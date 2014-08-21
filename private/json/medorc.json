@@ -1,0 +1,117 @@
+{   
+    "host": "medorc.pt",
+    "remote" : {
+        "disabled": true,
+        "script" : "http://hosts.medorc.org/medorc.pt/js/index.js",
+        "_": [
+            "The remote url to load a script overides the default script (default.js)"
+        ]
+    },
+    "situs": {
+        "disabled": false,
+        "hostname": "localhost",
+        "protocol": "http:",
+        "port": 8080,
+        "_": ["Server with Situs PHP Framework installed"]
+    },
+    "shebang": {
+        "dir": "/htdocs/libs/jquery.bar/js/",
+        "home": null,
+        "_": [
+            "dir: path or url to the json files a non secure http protocol url (not https)",
+            "home: path or url to the Home json file (the Bar addon/hashbang config files)",
+            ": remove or set falsy values to use the defaults"
+        ]
+    },
+    "head": {
+        "title": "MEDORC",
+        "description": "Sistemas informáticos de apoio à Engenharia Civil.",
+        "script": "js/medorc.js",
+        "stylesheet": "css/medorc.css",
+        "favicon": "favicon.ico",
+        "lang": "pt"
+    },
+    "data": {
+        "ga_situs": "UA-39702940-1"
+    },
+    "bars": {
+        "header":{
+            "items":[]
+        },
+        "body": {
+            "items":[{
+                "el":"img",
+                "attr": {
+                    "src": "img/medorc-tm.png",
+                    "title": "MEDORC: Medições e Orçamentos"
+                }
+            },
+            {
+                "html": "MEDORC&reg;",
+                "attr": {
+                    "class": "title"
+                }
+            },
+            {
+                "text": "Medições e Orçamentos",
+                "attr": {
+                    "class": "subtitle"
+                }
+            },
+            {
+                "html": "<i style=\"color: rgb(125,136,125);\">Sistemas informáticos de apoio à Engenharia Civil.</i>",
+                "attr": {
+                    "class": "subtitle"
+                }
+            },
+            {
+                "text": "e-mail",
+                "attr": {
+                    "href": "#e-mail",
+                    "id": "e-mail"
+                }
+            }]
+        },
+        "footer":{
+            "items":[{
+                "html": "Copyright &copy; 2013",
+                "attr": {
+                    "href":"#copyright"
+                }
+            },
+            {
+                "text": "medorc.pt",
+                "attr": {
+                    "href":"#medorc"
+                }
+            },
+            {
+                "text": "PROJECT",
+                "attr": {
+                    "href":"http://medorc.org",
+                    "class":"float-right"
+                }
+            },
+            {
+                "text": "info",
+                "attr": {
+                    "id":"contact",
+                    "href": "#mailto"
+                }
+            },
+            {
+                "text": "Situs Hosting",
+                "attr": {
+                    "title": "Premium Hosting at Low Cost Prices",
+                    "href": "http://situs-hosting.net"
+                }
+            }]
+        },
+        "notice": {
+            "items":[{
+                "el": "a",
+                "html": "<noscript>This place requires JavaScript</noscript>"
+            }]
+        }
+    }
+}

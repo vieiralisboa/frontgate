@@ -1,0 +1,110 @@
+{
+	"head": {	
+		"title": "MEDORC Project",
+		"description": "Estimating for Residential Construction",
+		"script":"js/medorc-project.js",
+		"stylesheet": "css/medorc-project.css",
+		"favicon":"favicon.png"
+	},
+
+	"data": {},
+
+	"host" : "medorc.org",
+
+    "remote" : {
+        "disabled": true,
+        "script" : "http://hosts.medorc.org/medorc.org/js/index.js",
+        "_": [
+            "The remote url to load a script overides the default script (default.js)"
+        ]
+    },
+
+    "situs": {
+        "disabled": false,
+        "hostname": "situs.no-ip.org",
+        "protocol": "http:",
+        "port": 8080,
+        "_": ["Server with Situs PHP Framework installed"]
+    },
+
+    "shebang": {
+        "_dir": "/htdocs/libs/jquery.bar/js/",
+        "dir": null,
+        "home": null,
+        "_": [
+            "dir: path or url to the json files a non secure http protocol url (not https)",
+            "home: path or url to the Home json file (the Bar addon/hashbang config files)",
+            ": remove or set falsy values to use the defaults"
+        ]
+    },
+
+	"bars": {	
+		"header":{
+			"items":[]
+		},
+
+		"body": {
+			"items":[{
+				"el":"img",
+				"attr": {
+					"src": "img/medorc-tm.png",
+					"title": "MEDORC Project"
+				}			 
+			},
+			{
+				"html": "MEDORC&reg;<span>PROJECT</span>",
+				"attr": {
+					"class": "title"
+				}			 
+			},
+			{
+				"html": "Estimating for Residential Construction",
+				"attr": {
+					"class": "subtitle"
+				}			 
+			},
+			{
+				"text": "e-mail",
+				"attr": {
+					"href": "#e-mail",
+					"id": "e-mail"
+				}			 
+			}]
+		},
+		
+		"footer":{
+			"items":[{
+				"html": "Copyright &copy; 2013",
+				"attr": {
+					"href":"#copyright"
+				}
+			},
+			{
+				"text": "medorc.org",
+				"attr": {
+					"href":"#medorc"
+				}
+			},
+			{
+				"text": "MEDORC",
+				"attr": {
+					"href":"http://medorc.pt"
+				}
+			},
+			{
+				"text": "info",
+				"attr": {
+					"id":"contact",
+					"href": "#mailto"
+				}
+			}]
+		},
+
+		"notice": {
+			"items":[{
+				"el": "a",
+				"html": "JavaScript is disabled"
+			}]
+		}
+	}
+}
