@@ -22,31 +22,31 @@
         // set webpage title
         document.title = data.title || data.name || document.title;
 
-        // Docs/Libs location
-        this.remote = new Frontgate.Location({
-            hostname: "docs.medorc.org",//$('html').attr("data-remote_hostname"),
-            pathname: "/",
-            protocol:  "http:",//$('html').attr("data-remote_protocol"),
-            port: 80, //$('html').attr("data-remote_protocol") == "https:" ? "": $('html').attr("data-remote_port"),
+        var request = {
             requestHash: location.hash,//!important
             requestMethod: $('html').attr("data-requet_method"),
             requestTime: parseInt($('html').attr("data-request_time")),
-            remoteAddr: $('html').attr("data-remote_addr")
-        });
-
-        // defaults for Situs Framework location Bar controller
-        var API = {
-            hostname: "situs.pt",
-            pathname: "/",
-            protocol: "http:",
-            //port: 443,
-            requestHash: location.hash,//!important
-            requestMethod: $('html').attr("data-requet_method"),
-            requestTime: parseInt($('html').attr("data-request_time")),
-            remoteAddr: $('html').attr("data-remote_addr")
+            remoteAddr: $('html').attr("data-remote_addr")            
         };
 
-        if(data.situs) _.extend(API, data.situs);
+        // Docs/Libs location        
+        var docs = data.docs || {
+            hostname: $('html').attr("data-docs_hostname"),
+            pathname: $('html').attr("data-docs_pathname"),
+            port: parseInt($('html').attr("data-docs_port")),
+            protocol:  $('html').attr("data-docs_protocol")
+        };
+        _.extend(docs, request);
+        this.remote = new Frontgate.Location(docs);
+
+        // defaults for Situs Framework location Bar controller
+        var API = data.situs || {
+            hostname: $('html').attr("data-situs_hostname"),
+            pathname: "/",
+            port: parseInt($('html').attr("data-situs_port")),
+            protocol: $('html').attr("data-situs_protocol")
+        };
+        _.extend(API, request);
         this.location = new Frontgate.Location(API);
 
         // start listening to hashchange events
