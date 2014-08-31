@@ -24,7 +24,7 @@
 
         // Docs/Libs location
         this.remote = new Frontgate.Location({
-            hostname: "libs.situs.pt",//$('html').attr("data-remote_hostname"),
+            hostname: "docs.medorc.org",//$('html').attr("data-remote_hostname"),
             pathname: "/",
             protocol:  "http:",//$('html').attr("data-remote_protocol"),
             port: 80, //$('html').attr("data-remote_protocol") == "https:" ? "": $('html').attr("data-remote_port"),
