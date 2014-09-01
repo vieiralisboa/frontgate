@@ -177,8 +177,8 @@
             // href the js script arguments
             for(var i in arguments){
                 // argument is a script
-                if(typeof arguments[i] == 'string'
-                        && arguments[i].match(/\.js$/)) {
+                if(typeof arguments[i] == 'string') {
+                        //&& arguments[i].match(/\.js$/)) {
                     scripts.push(this.href(arguments[i]));
                 }
                 else if(typeof arguments[i] == 'function'){
