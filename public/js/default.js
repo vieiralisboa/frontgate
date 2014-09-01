@@ -87,7 +87,7 @@ setTimeout(function(){
 
             // loading bar stylesheet
             //--------------------------
-            Situs.stylesheet("bar/css");
+            //Situs.stylesheet("bar/css");
             //Bar.styles.load(Remote);
             //Bar.API.get("css");
 
