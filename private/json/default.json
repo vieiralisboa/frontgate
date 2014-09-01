@@ -17,9 +17,9 @@
     },
     "situs": {
         "disabled": false,
-        "hostname": "localhost",
+        "hostname": "situs",
         "protocol": "http:",
-        "port": 8080,
+        "port": 80,
         "_": ["Server with Situs PHP Framework installed"]
     },
     "shebang": {
