@@ -83,7 +83,7 @@ setTimeout(function(){
         // 3. using Situs Bar controller
         //Situs.script("bar", function(){
         // 4. using Situs Bar controller
-        Situs.loadSync.scripts([Situs.href("_"), Situs.href("bar"), function(){
+        Situs.scripts("_", "bar", function(){
 
             // loading bar stylesheet
             //--------------------------
@@ -158,6 +158,6 @@ setTimeout(function(){
                     break;
                 default:
             }//*/
-        }]);
+        });
     });
 })($("html").attr("data-remote"));
