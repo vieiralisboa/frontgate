@@ -82,8 +82,8 @@
 /* Demos */
 
 </pre>
-<script src="/js/jquery/jquery-1.10.2.min.js"></script>
-<script src="/js/frontgate.js"></script>
+<script src="../js/jquery/jquery-1.10.2.min.js"></script>
+<script src="js/frontgate.js"></script>
 <script>
 //JavaScript
 
@@ -109,7 +109,7 @@ var string2 = {
 " * path is absolute from 'hostname'",
 " * @example model.js requires Backbone; Backbone requires _",
 " */"],
-code: "Frontgate.scripts('/underscore/underscore.js',\n\t'/backbone/backbone.js', '/dev/frontgate/js/model.js')"
+code: "Frontgate.scripts('js/underscore.js', 'js/backbone.js', 'js/model.js')"
 };
 
 var examples = [
@@ -147,7 +147,6 @@ var examples = [
             Frontgate.script('/js/hello.js');
         }
     },
-
     {
         button: "template",
         comment: "// path IS absolute from 'pathname'",
@@ -159,15 +158,12 @@ var examples = [
             });
         }
     },
-
     {
         button: "scripts",
         comment: string2.comment.join("\n"),
         code: string2.code,
         click: function(){
-            Frontgate.scripts('/underscore/1.4.2/underscore-min.js',
-                '/backbone/lib/0.9.2/backbone-min.js',
-                '/dev/frontgate/js/model.js');
+            Frontgate.scripts('js/underscore.js', 'js/backbone.js', 'js/model.js');
         }
     },
     {
