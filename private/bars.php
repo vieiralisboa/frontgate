@@ -1,13 +1,13 @@
 <?php
 
 // HTML template
-bars('index.html', $json);
+bars('index.html', $CONF);
 
 /**
  * Bars
  * requires Bar class
  */
-function bars($HTML, $JSON){
+function bars($HTML, $config){
     // this script's parent folder
     $PATH = dirname(__FILE__) . "/";
 
@@ -16,15 +16,8 @@ function bars($HTML, $JSON){
         $html = file_get_contents("$PATH/html/$HTML");
     }
 
-    // get json data
-    if(file_exists("$PATH/json/$JSON")){
-        $json = file_get_contents("$PATH/json/$JSON");
-    }
-
     // renders the page contents
-    if(!empty($html) && !empty($json)){
-        // decodes json data
-        $config = json_decode($json);
+    if(!empty($html) && !empty($config)){
 
         // detect user agent SO
         $OS = array('Windows', 'Win', 'Android', 'Linux', 'Mac', 'X11');
