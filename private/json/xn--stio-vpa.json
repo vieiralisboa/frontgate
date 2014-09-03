@@ -1,9 +1,9 @@
 {
-    "head": {   
+    "head": {
         "title": "Sítio",
         "description": "Alojamento Web Simples à Tua Maneira",
-        "script": "js/sítio.js",
-        "stylesheet": "css/situs.css",
+        "script": "//hosts.medorc.org/xn--stio-vpa.pt/js/sítio.js",
+        "stylesheet": "//hosts.medorc.org/xn--stio-vpa.pt/css/situs.css",
         "favicon": "favicon.png",
         "lang": "pt"
     },
@@ -16,7 +16,7 @@
 
     "remote" : {
         "disabled": false,
-        "script" : "http://hosts.medorc.org/xn--stio-vpa/js/index.js?_=0",
+        "script" : "http://hosts.medorc.org/xn--stio-vpa/js/index.js",
         "_": [
             "The remote server where host site is stored"
         ]
@@ -24,9 +24,9 @@
 
     "situs": {
         "disabled": false,
-        "hostname": "situs.no-ip.org",
-        "protocol": "http:",
-        "port": 8080,
+        "hostname": "situs.pt",
+        "protocol": "https:",
+        "port": null,
         "_": ["Server with Situs PHP Framework installed"]
     },
 
@@ -51,24 +51,24 @@
                 "attr": {
                     "class": "title",
                     "title": "Situs Hosting"
-                }            
+                }
             },
             {
 
                 "html": "<button style=\"opacity: .5; margin-top: 25px; cursor: pointer;\" type=\"button\"><code style=\"opacity: .75\">o teu sítio já existe!</code><div style=\"opacity: .25\"></button>",
                 "attr": {
                     "class": "subtitle"
-                }            
+                }
             }]
         },
-        
+
         "webpages": {
             "items": [{
                 "text": "António Vieira Lisboa",
                 "attr": {
                     "href": "http://avl.situs-hosting.com",
                     "title": "Poemas e versos de António Vieira Lisboa"
-                } 
+                }
             }]
         },
 
@@ -104,7 +104,7 @@
                     "class": "floater",
                     "href": "http://avl.situs-hosting.com",
                     "title": "Poemas e versos de António Vieira Lisboa"
-                } 
+                }
             }]
         },
 
