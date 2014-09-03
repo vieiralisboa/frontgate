@@ -10,7 +10,7 @@
     },
     "remote" : {
         "disabled": true,
-        "script" : "http://situs.no-ip.org/frontgate/js/index.js",
+        "script" : "http://hosts.medorc.org/frontgate/js/index.js",
         "_": [
             "The remote server where host site is stored"
         ]
