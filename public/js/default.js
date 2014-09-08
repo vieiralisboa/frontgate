@@ -94,7 +94,7 @@ setTimeout(function(){
             // make the header bar
             $("#header").bar({
                 items:[{
-                    text:"FRONTGATE JAVASCRIPT LIBRARY BAR",
+                    text:"FRONTGATE BAR",
                     attr:{
                         style: "color: silver; font-size: 26px; opacity: .25; text-shadow: 0 0 10px 5px black; padding: 3px 6px"
                     }
