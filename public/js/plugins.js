@@ -31,7 +31,7 @@
         firstScript = document.getElementsByTagName('script')[0];
     gaScript.src = '//www.google-analytics.com/ga.js';
     firstScript.parentNode.insertBefore(gaScript, firstScript);
-})(true);
+})(false);
 
 // Local Storage overide
 //-----------------------------------------------------------------------------

@@ -17,13 +17,13 @@
     },
     "situs": {
         "disabled": false,
-        "hostname": "situs",
-        "protocol": "http:",
+        "hostname": "situs.pt",
+        "protocol": "https:",
         "port": 80,
         "_": ["Server with Situs PHP Framework installed"]
     },
     "shebang": {
-        "dir": "/htdocs/libs/jquery.bar/js/",
+        "dir": false,
         "home": null,
         "_": [
             "dir: path or url to the json files a non secure http protocol url (not https)",

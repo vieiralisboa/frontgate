@@ -348,7 +348,7 @@
                 "margin-top": "10px"
             }
         }],
-        callback: function(bar){
+        callback: function(bar) {
             bar.$bar
             .css({
                "width": "auto",//!important
