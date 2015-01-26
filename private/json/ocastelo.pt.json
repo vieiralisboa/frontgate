@@ -1,0 +1,105 @@
+{
+	"head": {
+		"title": "O CASTELO",
+		"description": "Noites quentes; noites mouriscas. Quando os Canídeos uivam ao castelo; o tesouro das mouras encantadas.",
+		"script":"http://hosts.medorc.org/ocastelo.pt/js/ocastelo.js",
+		"stylesheet": "http://hosts.medorc.org/ocastelo.pt/css/ocastelo.css"
+	},
+
+	"data": {
+       	"ga_id": "UA-39702940-1"
+	},
+
+	"data": {},
+
+	"host" : "ocastelo.pt",
+
+    "remote" : {
+        "disabled": true,
+        "script" : "http://hosts.medorc.org/ocastelo.pt/js/index.js",
+        "_": [
+            "The remote url to load a script overides the default script (default.js)"
+        ]
+    },
+
+    "situs": {
+        "disabled": false,
+        "hostname": "situs.pt",
+        "protocol": "https:",
+        "port": null,
+        "_": ["Server with Situs PHP Framework installed"]
+    },
+
+    "shebang": {
+        "dir": null,
+        "home": null,
+        "_": [
+            "dir: path or url to the json files folder, a non secure http protocol url (not https)",
+            "home: path or url to the Home json file (the Bar addon/hashbang config files)",
+            ": remove or set falsy values to use the defaults"
+        ]
+    },
+
+	"bars": {
+		"header":{
+			"items":[]
+		},
+		"body": {
+			"items":[{
+				"el":"img",
+				"attr": {
+					"src": "http://hosts.medorc.org/ocastelo.pt/img/ocastelo.png",
+					"title": "O tesouro das mouras encantadas.",
+					"width": 200
+				}
+			},
+			{
+				"html": "O CASTELO",
+				"attr": {
+					"class": "title"
+				}
+			},
+			{
+				"text": "O tesouro das mouras encantadas.",
+				"attr": {
+					"class": "subtitle"
+				}
+			},
+
+			{
+				"text": "Queres o castelo.pt?",
+				"attr": {
+					"href": "#e-mail",
+					"id": "e-mail"
+				}
+			}]
+		},
+		"footer":{
+			"items":[{
+				"html": "Copyright &copy; 2013",
+				"attr": {
+					"href":"#copyright"
+				}
+			},
+			{
+				"text": "ocastelo.pt",
+				"attr": {
+					"href":"#ocastelo"
+				}
+			},
+			{
+				"text": "info",
+				"attr": {
+					"id":"contact",
+					"href": "#mailto"
+				}
+			}]
+		},
+		"notice": {
+			"items":[{
+				"el": "a",
+				"html": "<script>document.write('Bem-vindo')</script><noscript>This place requires JavaScript</noscript>"
+			}]
+		}
+	}
+}

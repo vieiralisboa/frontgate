@@ -1,0 +1,92 @@
+body{
+    background-color: rgb(200,190,160);
+}
+
+#footer, #header, #body{
+    background: none;
+}
+
+#e-mail{
+    background-color: rgb(135,98,80);
+    padding: 3px 8px 4px;
+    border-radius: 3px;
+    line-height: 16px;
+    display: inline-block;
+    margin: 15px;
+}
+
+/* Bar: body */
+#body .bar {
+    width: auto; 
+    margin-top: 5%;
+    margin-bottom: 24px;
+}
+#body .bar li {
+    float: none;        
+}
+#body img{
+    margin-left: -10px;
+}
+#body a.title {
+    font-size: 32px;
+    font-family: 'Trajan';
+    font-weight: 800;
+    line-height: 24px;
+    letter-spacing: 3px;
+    margin-bottom: 0px;
+    margin-top: 16px;
+}
+#body a.subtitle {
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-family: Georgia, serif;
+    font-weight: normal;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+#body a.title, #body a.subtitle {
+    color: rgb(95, 90, 95); color: rgb(126,112,87);
+}
+
+/* Notice Bar */
+#notice {
+    position: absolute;
+    top: 0px;
+    height: 0px;
+}
+#notice .bar {
+    width: auto;
+}
+#notice  .bar > ul{
+    background-color: rgb(135,98,80);
+    border-radius: 0 0 5px 5px; 
+}
+#notice .bar > ul > li a {
+    color: rgb(234,234,234);
+    font-size: 13px;
+    margin: 0px 10px;
+}
+
+/* Bar: footer */
+#footer *{
+    color: rgb(95, 90, 95);
+}
+#footer {
+    position: absolute;
+    bottom: 0px;
+}
+#footer a:not([href='#medorc']){
+    font-weight: 400;
+}
+#footer li:first-child a {
+    font-weight: 300;
+}
+#footer li:last-child {
+    float: right;
+}
+
+/* Subdomains Bar */
+#webpages .bar {
+    width: auto;
+    display: none;
+}
