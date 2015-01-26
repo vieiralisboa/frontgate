@@ -1,0 +1,119 @@
+{
+    "head": {
+        "title": "Sítio",
+        "description": "Alojamento Web Simples à Tua Maneira",
+        "script": "//hosts.medorc.org/xn--stio-vpa.pt/js/sítio.js",
+        "stylesheet": "//hosts.medorc.org/xn--stio-vpa.pt/css/situs.css",
+        "favicon": "favicon.png",
+        "lang": "pt"
+    },
+
+    "data": {
+        "ga": "UA-39702940-1"
+    },
+
+    "host": "xn--stio-vpa.pt",
+
+    "remote" : {
+        "disabled": false,
+        "script" : "http://hosts.medorc.org/xn--stio-vpa/js/index.js",
+        "_": [
+            "The remote server where host site is stored"
+        ]
+    },
+
+    "situs": {
+        "disabled": false,
+        "hostname": "situs.pt",
+        "protocol": "https:",
+        "port": null,
+        "_": ["Server with Situs PHP Framework installed"]
+    },
+
+    "shebang": {
+        "dir": "/var/www/libs/bar/js/",
+        "home": "/var/www/libs/bar/js/",
+        "_": [
+            "dir: path or url to the json files a non secure http protocol url (not https)",
+            "home: path or url to the Home json file (the Bar addon/hashbang config files)",
+            ": remove or set falsy values to use the defaults"
+        ]
+    },
+
+    "bars": {
+        "header": {
+            "items":[]
+        },
+
+        "body": {
+            "items":[{
+                "text": "sítio",
+                "attr": {
+                    "class": "title",
+                    "title": "Situs Hosting"
+                }
+            },
+            {
+
+                "html": "<button style=\"opacity: .5; margin-top: 25px; cursor: pointer;\" type=\"button\"><code style=\"opacity: .75\">o teu sítio já existe!</code><div style=\"opacity: .25\"></button>",
+                "attr": {
+                    "class": "subtitle"
+                }
+            }]
+        },
+
+        "webpages": {
+            "items": [{
+                "text": "António Vieira Lisboa",
+                "attr": {
+                    "href": "http://avl.situs-hosting.com",
+                    "title": "Poemas e versos de António Vieira Lisboa"
+                }
+            }]
+        },
+
+        "footer": {
+            "items":[{
+                "html": "Copyright &copy; 2014",
+                "attr": {
+                    "href":"#copyright"
+                }
+            },
+            {
+                "text": "sítio.pt",
+                "attr": {
+                    "href":"#sítio"
+                }
+            },
+            {
+                "text": "xn--stio-vpa.pt",
+                "attr": {
+                    "href":"#sítio"
+                }
+            },
+            {
+                "text": "info",
+                "attr": {
+                    "id":"contact",
+                    "href": "#mailto"
+                }
+            },
+            {
+                "text": "António Vieira Lisboa",
+                "attr": {
+                    "class": "floater",
+                    "href": "http://avl.situs-hosting.com",
+                    "title": "Poemas e versos de António Vieira Lisboa"
+                }
+            }]
+        },
+
+        "notice": {
+            "items":[{
+                "el": "a",
+                "text": "JavaScript desactivado"
+            }]
+        }
+    }
+}
+
