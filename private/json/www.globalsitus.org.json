@@ -1,0 +1,102 @@
+{
+    "host": "default",
+    "head": {
+        "title": "Global Situs",
+        "description": "Global Situs Web Site",
+        "script": "js/GlobalSitus.js",
+        "stylesheet": "css/default.css",
+        "lang":"en",
+        "favicon":"favicon.png"
+    },
+    "remote" : {
+        "disabled": true,
+        "script" : "http://hosts.medorc.org/frontgate/js/index.js",
+        "_": [
+            "The remote server where host site is stored"
+        ]
+    },
+    "situs": {
+        "disabled": false,
+        "hostname": "situs.pt",
+        "protocol": "https:",
+        "port": 80,
+        "_": ["Server with Situs PHP Framework installed"]
+    },
+    "shebang": {
+        "dir": false,
+        "home": null,
+        "_": [
+            "dir: path or url to the json files a non secure http protocol url (not https)",
+            "home: path or url to the Home json file (the Bar addon/hashbang config files)",
+            ": remove or set falsy values to use the defaults"
+        ]
+    },
+    "bars": {
+        "header": {
+            "_items":[{
+            "text": "#!Home",
+            "attr":{
+                "title": "This is a shebang request.",
+                "href": "?_escaped_fragment_=Home"
+            }
+        }]
+        },
+        "body": {
+            "items":[{
+                "text": "*",
+                "attr": {
+                    "class": "title",
+                    "title": "Global Situs",
+                    "style":"font-size: 42px"
+                }
+            },
+            {
+                "text": "*",
+                "attr": {
+                    "class": "subtitle",
+                    "title": "International House of Situs",
+                    "style":"color: rgba(200, 255, 0, .5); font-style: italic;"
+                }
+            }]
+        },
+        "footer": {
+            "items":[{
+                "html": "Copyright &copy; 2015",
+                "attr": {
+                    "href":"#copyright"
+                }
+            },
+            {
+                "text": "FRONTGATE",
+                "attr": {
+                    "href":"#frontgate"
+                }
+            },
+            {
+                "text": "frontgate.situs.pt",
+                "attr": {
+                    "href":"#situs"
+                }
+            },
+            {
+                "text": "info",
+                "attr": {
+                    "id":"contact",
+                    "href": "#mailto"
+                }
+            }]
+        },
+        "notice": {
+            "items":[{
+                "el": "a",
+                "text": "JavaScript is disabled"
+            }]
+        }
+    },
+    "data": {
+        "ga":  "UA-XXXXXXXX-X",
+        "_": {
+            "ga": "Google Analytics ID"
+        }
+    }
+}
