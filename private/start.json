@@ -1,5 +1,20 @@
 {
 	"json": null,
 	"disabled": false,
-	"error_reporting": 0
+	"error_reporting": 0,
+	"redirect": {
+		"www.xn--stio-vpa.pt": "xn--stio-vpa.pt"
+	},
+	"alias": {
+        "globalsitus.com": [
+            "globalsitus.net",
+            "globalsitus.org",
+            "www.globalsitus.net",
+            "www.globalsitus.org",
+            "www.globalsitus.com"
+        ],
+       "www.xn--stio-vpa.pt": [
+           "xn--stio-vpa.pt"
+        ]
+    }
 }

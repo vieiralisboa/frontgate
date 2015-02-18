@@ -13,7 +13,7 @@ else $start = (object) array("error_reporting" => -1);
 
 // Error Reporting from config
 if($start->error_reporting != 0) {
-	error_reporting(-1);
+    error_reporting(-1);
 }
 
 // Dynamic Host
