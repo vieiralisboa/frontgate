@@ -7,12 +7,13 @@ bars('index.html', $CONF);
  * Bars
  * requires Bar class
  */
-function bars($HTML, $config){
+function bars($HTML, $config)
+{
     // this script's parent folder
-    $PATH = dirname(__FILE__) . "/";
+    $PATH = dirname(__FILE__)."/";
 
     // template
-    if(file_exists("$PATH/html/$HTML")){
+    if(file_exists("$PATH/html/$HTML")) {
         $html = file_get_contents("$PATH/html/$HTML");
     }
 
@@ -37,14 +38,14 @@ function bars($HTML, $config){
         $remote = 0;
 
         // Remote location is enabled
-        if(!$config->remote->disabled){
+        if(!$config->remote->disabled) {
             // get Remote Location headers
             $headers = get_headers($config->remote->script, 1);
-            if($headers){
+            if($headers) {
                 $remote = preg_match('/^HTTP\/\d\.\d\s+(200|301|302)/', $headers[0]);
             }
             // Remote location is online
-            if($remote){
+            if($remote) {
                 // to wrap body contents with noscript (fallback for js disabled browsers)
                 $config->noscript = true;
                 // to load remote script
@@ -56,7 +57,7 @@ function bars($HTML, $config){
         $data[] = str_replace('X', $remote, 'data-remote="X"');
 
         // Situs is enabled
-        if(!$config->situs->disabled){
+        if(!$config->situs->disabled) {
             $config->data->situs_hostname = $config->situs->hostname;
             $config->data->situs_protocol = $config->situs->protocol;
             $host = $config->situs->protocol."//".$config->situs->hostname;
@@ -73,7 +74,7 @@ function bars($HTML, $config){
         include "shebang.php";
 
         // data attributes on html element
-        foreach ($config->data as $key => $value){
+        foreach ($config->data as $key => $value) {
             if($key != "_"){
                 $data[] = str_replace('X', $value, "data-$key=\"X\"");
             }
@@ -87,29 +88,27 @@ function bars($HTML, $config){
         require $PATH. "bar.php";
         $bar = new Bar($config->bars);
         $bars = $bar->bars();
-        $bars = str_replace("%style%",
-                "@import url(\"css/bar.css\");",
-                "<style type='text/css'>%style%</style>\n") . $bars;
+        $bars = str_replace("%style%", "@import url(\"/Bar/css/bar.css\");", "<style type='text/css'>%style%</style>\n").$bars;
         $bars = $config->noscript ? str_replace("%bars%", $bars, "<noscript>%bars%</noscript>"): $bars;
         $html = str_replace("<!-- bars -->", $bars, $html);
 
         // template values
-        if(empty($config->head->lang)){
+        if(empty($config->head->lang)) {
             // language
             $config->head->lang = "en";
         }
 
-        if(empty($config->head->script)){
+        if(empty($config->head->script)) {
             // javascript
             $config->head->script = "";
         }
 
-        if(empty($config->head->stylesheet)){
+        if(empty($config->head->stylesheet)) {
             // stylesheet
             $config->head->stylesheet = "";
         }
 
-        foreach($config->head as $name => $value){
+        foreach($config->head as $name => $value) {
             // set template value
             $html = str_replace("%$name%", $value, $html);
         }
