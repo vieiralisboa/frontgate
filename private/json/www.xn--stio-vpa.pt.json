@@ -2,8 +2,10 @@
     "head": {
         "title": "Sítio",
         "description": "Alojamento Web Simples à Tua Maneira",
-        "script": "//hosts.medorc.org/xn--stio-vpa.pt/js/sítio.js",
-        "stylesheet": "//hosts.medorc.org/xn--stio-vpa.pt/css/situs.css",
+        "script": "http://hosts.medorc.org/xn--stio-vpa.pt/js/sítio.js",
+        "_script": "http://hosts.medorc.org/xn--stio-vpa/js/index.js",
+        "stylesheet": "xn--stio-vpa/css/situs.css",
+        "_stylesheet": "http://hosts.medorc.org/xn--stio-vpa.pt/css/situs.css",
         "favicon": "favicon.png",
         "lang": "pt"
     },
@@ -16,10 +18,9 @@
 
     "remote" : {
         "disabled": false,
-        "script" : "http://hosts.medorc.org/xn--stio-vpa/js/index.js",
-        "_": [
-            "The remote server where host site is stored"
-        ]
+        "script" : "http://xn--stio-vpa.pt/xn--stio-vpa/js/index.js",
+        "_script" : "http://hosts.medorc.org/xn--stio-vpa/js/index.js",
+        "_": ["The remote server where host site is stored"]
     },
 
     "situs": {
