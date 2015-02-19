@@ -88,7 +88,7 @@ function bars($HTML, $config)
         require $PATH. "bar.php";
         $bar = new Bar($config->bars);
         $bars = $bar->bars();
-        $bars = str_replace("%style%", "@import url(\"/Bar/css/bar.css\");", "<style type='text/css'>%style%</style>\n").$bars;
+        $bars = str_replace("%style%", "@import url(\"/Ze/css/bar.css\");", "<style type='text/css'>%style%</style>\n").$bars;
         $bars = $config->noscript ? str_replace("%bars%", $bars, "<noscript>%bars%</noscript>"): $bars;
         $html = str_replace("<!-- bars -->", $bars, $html);
 
