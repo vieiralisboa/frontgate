@@ -51,7 +51,7 @@
                 }
             },
             {
-                "text": "PHP Shebang Boilerplate for JS Bar",
+                "text": "PHP Boilerplate for Ze Bar",
                 "attr": {
                     "class": "subtitle"
                 }
@@ -59,21 +59,27 @@
         },
         "footer": {
             "items":[{
-                "html": "Copyright &copy; 2014",
+                "html": "Copyright &copy; 2015",
                 "attr": {
                     "href":"#copyright"
                 }
             },
             {
-                "text": "FRONTGATE",
+                "text": "Frontgate",
                 "attr": {
-                    "href":"#frontgate"
+                    "href":"https://github.com/vieiralisboa/frontgate"
                 }
             },
             {
-                "text": "frontgate.situs.pt",
+                "text": "Ze",
                 "attr": {
-                    "href":"#situs"
+                    "href":"https://github.com/vieiralisboa/ze"
+                }
+            },
+            {
+                "text": "Bar",
+                "attr": {
+                    "href":"/Ze/bar.html"
                 }
             },
             {
