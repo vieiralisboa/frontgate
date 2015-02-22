@@ -67,15 +67,15 @@
                 }
             },
             {
-                "text": "FRONTGATE",
+                "text": "SITUS",
                 "attr": {
-                    "href":"#frontgate"
+                    "href":"#SITUS"
                 }
             },
             {
-                "text": "frontgate.situs.pt",
+                "text": "Hosting",
                 "attr": {
-                    "href":"#situs"
+                    "href":"#Hosting"
                 }
             },
             {
