@@ -3,7 +3,10 @@
 	"disabled": false,
 	"error_reporting": 0,
 	"redirect": {
-		"www.xn--stio-vpa.pt": "xn--stio-vpa.pt"
+		"www.xn--stio-vpa.pt": "http://xn--stio-vpa.pt",
+        "www.situs.pt": "https://situs.pt",
+        "situs.pt": "https://situs.pt"
+
 	},
 	"alias": {
         "globalsitus.com": [
