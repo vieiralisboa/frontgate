@@ -8,7 +8,7 @@ $server_name = null;
 if(isset($start->redirect)) {
     foreach($start->redirect as $name => $url) {
         if($name == $_SERVER['SERVER_NAME']) {
-            header('Location: http://'.$url);
+            header('Location: '.$url);
             exit;
         }
     }
